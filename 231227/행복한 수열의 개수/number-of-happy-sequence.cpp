@@ -8,7 +8,7 @@ int arr[MAX][MAX];
 int n,m;
 
 bool Column(int x){
-    int max_cnt=0;
+    int max_cnt=1;
     int cnt =1;
     for(int i=1; i<n; i++){
         if(arr[i-1][x]==arr[i][x])
@@ -21,7 +21,7 @@ bool Column(int x){
 }
 
 bool Low(int x){
-    int max_cnt=0;
+    int max_cnt=1;
     int cnt =1;
     for(int i=1; i<n; i++){
         if(arr[x][i-1]==arr[x][i])
