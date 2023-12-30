@@ -6,7 +6,7 @@ using namespace std;
 #define MAX 1000
 
 int arr[MAX];
-int dp[MAX] = {INT_MIN,};
+int dp[MAX];
 
 int main() {
     int n;
@@ -14,6 +14,7 @@ int main() {
 
     for(int i=0; i<n; i++){
         cin>>arr[i];
+        dp[i] = INT_MIN;
     }
 
     dp[0] = 0;
@@ -29,6 +30,7 @@ int main() {
     }
 
     sort(dp, dp+n);
+
     cout<<dp[n-1];
     return 0;
 }
