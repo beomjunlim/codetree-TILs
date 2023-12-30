@@ -7,10 +7,6 @@ using namespace std;
 
 int dp[MAX];
 
-bool compare(pair<int,int> a, pair<int,int> b){
-    return a.second<b.second;
-}
-
 int main() {
     vector<pair<int,int>> v;
     vector<int> pay;
@@ -28,7 +24,7 @@ int main() {
     for(int i=0; i<n; i++){
         for(int j=0; j<i; j++){
             if(v[i].first>v[j].second)
-                dp[i] = max(dp[i], dp[j] + pay[j]);
+                dp[i] = max(dp[i], dp[j] + pay[i]);
         }
     }
 
