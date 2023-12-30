@@ -13,7 +13,7 @@ bool compare(pair<int,int> a, pair<int,int> b){
 
 int main() {
     vector<pair<int,int>> v;
-    vector<pair<int,int>> w;
+    vector<int> pay;
     int n;
     cin>>n;
 
@@ -21,17 +21,14 @@ int main() {
         int a,b,c;
         cin>>a>>b>>c;
         v.push_back(make_pair(a,b));
-        w.push_back(make_pair(b,c));
+        pay.push_back(c);
+        dp[i] = c;
     }
 
-    sort(v.begin(), v.end(), compare);
-    sort(w.begin(), w.end());
-
     for(int i=0; i<n; i++){
-        dp[i] = w[i].second;
         for(int j=0; j<i; j++){
             if(v[i].first>v[j].second)
-                dp[i] = max(dp[i], dp[j] + w[j].second);
+                dp[i] = max(dp[i], dp[j] + pay[j]);
         }
     }
 
