@@ -5,6 +5,7 @@ using namespace std;
 
 int main() {
     unordered_map<string, int> arr;
+    unordered_map<int, string> num;
     int n,m;
     cin>>n>>m;
 
@@ -12,16 +13,14 @@ int main() {
         string s;
         cin>>s;
         arr[s]=i;
+        num[i]=s;
     }
 
     for(int i=0; i<m; i++){
         string s;
         cin>>s;
         if(arr[s]==0){
-            for(auto & num : arr){
-                if(num.second==stoi(s))
-                    cout<<num.first<<'\n';
-            }
+            cout<<num[stoi(s)]<<'\n';
         }
         else{
             cout<<arr[s]<<'\n';
