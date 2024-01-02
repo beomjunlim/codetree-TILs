@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 #define MAX 100000
@@ -20,6 +21,7 @@ int main() {
         dp[i] = max(dp[i-1] + arr[i], arr[i]);
     }
 
+    sort(dp+1, dp+n+1);
     cout<<dp[n];
     return 0;
 }
