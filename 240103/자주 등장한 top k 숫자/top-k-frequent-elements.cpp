@@ -6,9 +6,7 @@ using namespace std;
 
 #define MAX 100000
 
-bool compare(pair<int,int> a, pair<int,int> b){
-    return a.second > b.second;
-}
+int arr[MAX];
 
 int main() {
     unordered_map<int, int> num;
@@ -17,19 +15,18 @@ int main() {
     cin>>n>>k;
 
     for(int i=0; i<n; i++){
-        int a;
-        cin>>a;
-        num[a]+=1;
+        cin>>arr[i];
+        num[arr[i]]++;
     }
 
-    for(auto & m : num){
-            v.push_back(make_pair(m.first, m.second));
+    for(unordered_map<int, int>::iterator it = num.begin(); it !=num.end(); it++){
+        v.push_back({it->second, it->first});
     }
 
-    sort(v.begin(), v.end(), compare);
+    sort(v.begin(), v.end());
     
-    for(int i=0; i<k; i++){
-        cout<<v[i].first<<" ";
+    for(int i= (int)v.size()-1; i>=(int)v.size()-k; i--){
+        cout<<v[i].second<<" ";
     }
     return 0;
 }
