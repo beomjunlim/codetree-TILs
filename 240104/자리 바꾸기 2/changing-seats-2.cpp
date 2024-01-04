@@ -2,7 +2,7 @@
 #include <unordered_set>
 using namespace std;
 
-#define MAX 1000000
+#define MAX 100000
 int a[MAX], b[MAX];
 int arr[MAX+1];
 int ans[MAX+1];
