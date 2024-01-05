@@ -12,15 +12,23 @@ int main() {
         cin>>a;
         pq.push(a);
     }
-    while(pq.size()!=1){
+    while(1){
+        if(pq.size()==1){
+            cout<<pq.top();
+            break;
+        }
+        if(pq.empty()){
+            cout<<-1;
+            break;
+        }
         int x = pq.top();
         pq.pop();
         int y = pq.top();
         pq.pop();
-        
+
         if(x-y!=0)
             pq.push(x-y);
     }
-    cout<<pq.top();
+
     return 0;
 }
