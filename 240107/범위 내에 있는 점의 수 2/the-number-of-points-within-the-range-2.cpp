@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 100000
+#define MAX 1000000
 int arr[MAX+1];
 int num[MAX+1];
 
@@ -29,7 +29,7 @@ int main() {
         
         else if(y>max_num)
             num[y] = num[max_num];
-            
+
         cout<<num[y]-num[x-1]<<'\n';
         q--;
     }
