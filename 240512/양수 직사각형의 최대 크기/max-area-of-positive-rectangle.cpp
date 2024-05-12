@@ -9,7 +9,7 @@ int arr[21][21];
 void func(int x, int y, int x_size, int y_size){
     for(int i=x; i<x+x_size; i++){
         for(int j=y; j<y+y_size; j++){
-            if(arr[i][j]<0){
+            if(arr[i][j]<=0){
                 return;
             }
         }
