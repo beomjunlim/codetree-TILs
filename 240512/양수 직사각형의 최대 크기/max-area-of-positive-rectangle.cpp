@@ -3,7 +3,7 @@
 using namespace std;
 
 int n,m;
-int ans = 0;
+int ans = -1;
 int arr[21][21];
 
 void func(int x, int y, int x_size, int y_size){
