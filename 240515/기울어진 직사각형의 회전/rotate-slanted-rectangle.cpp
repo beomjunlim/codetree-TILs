@@ -37,12 +37,13 @@ int main() {
 
     else if(dir==1){
         int temp = arr[r][c];
+
         for(int i=0; i<m1; i++){
             arr[r-i][c+i] = arr[r-i-1][c+i+1];
         }
 
         for(int i=0; i<m2; i++){
-            arr[r-m1-i][c+m1-i] = arr[r-m1-i-1][c+m1-i+1]; 
+            arr[r-m1-i][c+m1-i] = arr[r-m1-i-1][c+m1-i-1]; 
         }
 
         for(int i=0; i<m3; i++){
@@ -50,7 +51,7 @@ int main() {
         }
 
         for(int i=0; i<m4-1; i++){
-            arr[r-m4-i][c-m4+i] = arr[r-m4-i-1][c-m4+i+1];
+            arr[r-m4+i][c-m4+i] = arr[r-m4+i+1][c-m4+i+1];
         }
         arr[r-1][c-1] = temp;
     }
