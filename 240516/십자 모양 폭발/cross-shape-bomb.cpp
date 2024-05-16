@@ -1,101 +1,74 @@
-#include <iostream>
+#include<iostream>
+#include<algorithm>
 using namespace std;
 
-int n, r, c;
+int n;
 int arr[201][201];
-int next_arr[201][201]; // next_arr 추가
 
-void down(int y) {
-    for (int i = n - 1; i > 0; i--) {
-        if (arr[i][y] == 0) {
-            for (int k = i; k > 0; k--) {
-                arr[k][y] = arr[k - 1][y];
+void Bomb(int x, int y){
+    int num = arr[x][y];
+
+    int start = 0;
+    int end = n-1;
+
+    if(y-num+1>=0)
+        start = y - num + 1;
+
+    if(y+num-1<n)
+        end = y + num -1;
+    
+    for(int i=start; i<=end; i++){
+        arr[x][i] = 0;
+    }
+
+    for(int i=start; i<=end; i++){
+        if(i!=y){
+            int idx = x;
+            while(idx>0){
+                swap(arr[idx][i], arr[idx-1][i]);
+                idx--;
             }
-            arr[0][y] = 0;
         }
     }
-}
 
-void row() {
-    int num = arr[r][c];
-    int start = 0;
-    int end = n - 1;
+    start = 0;
+    end = n-1;
 
-    if (r - num + 1 >= 0)
-        start = r - num + 1;
+    if(x-num+1>=0)
+        start = x - num + 1;
+    
+    if(x+num-1<n)
+        end = x + num - 1;
+    
+    for(int i=start; i<=end; i++){
+        arr[i][y] = 0;
+    }
 
-    if (r + num - 1 < n)
-        end = r + num - 1;
-
-    for (int i = start - 1; i >= 0; i--) {
-        arr[end][c] = arr[i][c];
+    while(start>=0){
+        swap(arr[end][y], arr[start][y]);
         end--;
-    }
-
-    for (int i = r - num + 1; i <= r + num - 1; i++) {
-        arr[i][c] = 0;
+        start--;
     }
 }
 
-void bomb() {
-    int num = arr[r][c];
-    int start = 0;
-    int end = n - 1;
+int main(){
+    int r,c;
+    cin>>n;
 
-    if (c - num + 1 >= 0)
-        start = c - num + 1;
-
-    if (c + num - 1 < n)
-        end = c + num - 1;
-
-    for (int i = start; i <= end; i++) {
-        if (i == c) {
-            row();
-        } else {
-            down(i);
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cin>>arr[i][j];
         }
     }
 
-    // 폭탄이 터진 이후의 결과를 next_arr에 저장합니다.
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            next_arr[i][j] = 0;
+    cin>>r>>c;
 
-    for (int j = 0; j < n; j++) {
-        int next_row = n - 1;
-        for (int i = n - 1; i >= 0; i--) {
-            if (arr[i][j])
-                next_arr[next_row--][j] = arr[i][j];
+    Bomb(r-1,c-1);
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout<<arr[i][j]<<" ";
         }
+        cout<<'\n';
     }
-
-    // next_arr 값을 arr로 옮깁니다.
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            arr[i][j] = next_arr[i][j];
-}
-
-int main() {
-    cin >> n;
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> arr[i][j];
-        }
-    }
-
-    cin >> r >> c;
-    r--; // 1-based index를 0-based로 변경
-    c--;
-
-    bomb();
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << arr[i][j] << " ";
-        }
-        cout << '\n';
-    }
-
-    return 0;
 }
