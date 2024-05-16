@@ -44,8 +44,8 @@ void Bomb(int x, int y){
         arr[i][y] = 0;
     }
 
-    while(start>=0){
-        swap(arr[end][y], arr[start][y]);
+    while(start>=1){
+        swap(arr[end][y], arr[start-1][y]);
         end--;
         start--;
     }
