@@ -45,7 +45,7 @@ bool bomb(){
         num = arr[i];
     }
 
-    if(cnt>=m){
+    if(cnt>=m&&Mysize!=0){
         sw = true;
         for(int j=start; j<Presize; j++){
             Mysize--;
