@@ -6,6 +6,7 @@ int arr[4][4];
 int ans[4][4];
 
 void change(char dir){
+    memset(ans, 0, sizeof(ans));
     if(dir=='R'){
         for(int i=0; i<4; i++){
             int idx = 3;
@@ -48,6 +49,12 @@ void change(char dir){
                     idx--;
                 }
             }
+        }
+    }
+
+    for(int i=0; i<4; i++){
+        for(int j=0; j<4; j++){
+            arr[i][j] = ans[i][j];
         }
     }
 }
@@ -94,7 +101,7 @@ void shiftDown(int column){
 
     for(int i=2; i>=0; i--){
         if(num==arr[i][column]){
-            arr[i+1][column];
+            arr[i+1][column] = num*2;
             arr[i][column] = 0;
         }
         num = arr[i][column];
@@ -103,7 +110,6 @@ void shiftDown(int column){
 
 int main() {
     char dir;
-    memset(ans, 0, sizeof(ans));
 
     for(int i=0; i<4; i++){
         for(int j=0; j<4; j++){
@@ -112,6 +118,9 @@ int main() {
     }
 
     cin>>dir;
+
+    change(dir);
+
 
     if(dir=='L'){
         for(int i=0; i<4; i++){
