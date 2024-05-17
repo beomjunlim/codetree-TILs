@@ -32,7 +32,7 @@ void change(char dir){
         for(int j=0; j<4; j++){
             int idx = 0;
             for(int i=0; i<4; i++){
-                if(arr[i][j]==0){
+                if(arr[i][j]!=0){
                     ans[idx][j] = arr[i][j];
                     idx++;
                 }
@@ -43,7 +43,7 @@ void change(char dir){
         for(int j=0; j<4; j++){
             int idx = 3;
             for(int i=3; i>=0; i--){
-                if(arr[i][j]==0){
+                if(arr[i][j]!=0){
                     ans[idx][j] = arr[i][j];
                     idx--;
                 }
