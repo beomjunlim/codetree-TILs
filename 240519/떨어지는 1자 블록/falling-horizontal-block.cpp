@@ -32,9 +32,9 @@ int main() {
         }
     }
 
-    if(n==1){
+    if(!sw){
         for(int j=m; j<m+k; j++){
-            arr[0][j] = 1;
+            arr[n-1][j] = 1;
         }
     }
 
