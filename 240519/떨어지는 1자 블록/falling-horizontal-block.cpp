@@ -32,6 +32,12 @@ int main() {
         }
     }
 
+    if(n==1){
+        for(int j=m; j<m+k; j++){
+            arr[0][j] = 1;
+        }
+    }
+
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             cout<<arr[i][j]<<" ";
