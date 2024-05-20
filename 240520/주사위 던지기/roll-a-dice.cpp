@@ -46,6 +46,10 @@ int main() {
                 up = front;
                 front = 7 - temp;
             }
+            else{
+                nx = x;
+                ny = y;
+            }
         }
         else if(dice[i]=='D'){
             dir = 2;
@@ -56,6 +60,10 @@ int main() {
                 int temp = up;
                 up = 7 - front;
                 front = temp;
+            }
+            else{
+                nx = x;
+                ny = y;
             }
         }
         else if(dice[i]=='L'){
@@ -68,6 +76,10 @@ int main() {
                 up = right;
                 right = 7 - temp;
             }
+            else{
+                nx = x;
+                ny = y;
+            }
         }
         else if(dice[i]=='R'){
             dir = 1;
@@ -79,16 +91,20 @@ int main() {
                 up = 7 - right;
                 right = temp;
             }
+            else{
+                nx = x;
+                ny = y;
+            }
         }
-//        cout<<nx<<" "<<ny<<arr[nx][ny]<<'\n';
+        //cout<<nx<<" "<<ny<<arr[nx][ny]<<'\n';
     }
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-  //          cout<<arr[i][j]<<" ";
+          //  cout<<arr[i][j]<<" ";
             cnt += arr[i][j];
         }
-    //    cout<<'\n';
+       // cout<<'\n';
     }
     cout<<cnt<<'\n';
     return 0;
