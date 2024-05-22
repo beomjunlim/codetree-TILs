@@ -9,6 +9,10 @@ int cnt[20][20];
 int dx[] = {-1,1,0,0};
 int dy[] = {0,0,1,-1};
 
+bool InRange(int x, int y){
+    return 0<=x&&x<n&&0<=y&&y<n;
+}
+
 int main() {
     cin>>n>>m>>t;
 
@@ -40,7 +44,7 @@ int main() {
             int number = 0;
 
             for(int k=0; k<4; k++){
-                if(number<arr[x+dx[k]][y+dy[k]]){
+                if(InRange(x+dx[k],y+dy[k])&&number<arr[x+dx[k]][y+dy[k]]){
                     number = arr[x+dx[k]][y+dy[k]];
                     nx = x + dx[k];
                     ny = y + dy[k];
