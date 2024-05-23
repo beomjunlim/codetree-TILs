@@ -4,10 +4,10 @@
 using namespace std;
 
 int n,m,t;
-int arr[20][20];
-int cnt[20][20];
+int arr[21][21];
+int cnt[21][21];
 int dx[] = {-1,1,0,0};
-int dy[] = {0,0,1,-1};
+int dy[] = {0,0,-1,1};
 
 bool InRange(int x, int y){
     return 0<=x&&x<n&&0<=y&&y<n;
@@ -34,23 +34,27 @@ int main() {
     for(int i=0; i<t; i++){
         int num = marble.size();
         memset(cnt, 0, sizeof(cnt));
-        int nx;
-        int ny;
+
         
         for(int j=0; j<num; j++){
+            int nx = -1;
+            int ny = -1;
             int x = marble.front().first;
             int y = marble.front().second;
             marble.pop();
             int number = 0;
 
             for(int k=0; k<4; k++){
-                if(InRange(x+dx[k],y+dy[k])&&number<arr[x+dx[k]][y+dy[k]]){
-                    number = arr[x+dx[k]][y+dy[k]];
-                    nx = x + dx[k];
-                    ny = y + dy[k];
+                int newX = x + dx[k];
+                int newY = y + dy[k];
+                if(InRange(newX, newY)&&number<arr[newX][newY]){
+                    number = arr[newX][newY];
+                    nx = newX;
+                    ny = newY;
                 }
             }
-            cnt[nx][ny]++;
+            if(nx!=-1&&ny!=-1)
+                cnt[nx][ny]++;
         }
 
         for(int j=0; j<n; j++){
