@@ -26,7 +26,7 @@ int main() {
     int end = 0;
 
     for(int i=0; i<n; i++){
-        if(line[i].first>=end){
+        if(line[i].first>end){
             ans++;
             end = line[i].second;
         }
