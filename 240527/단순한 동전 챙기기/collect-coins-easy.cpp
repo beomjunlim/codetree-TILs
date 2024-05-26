@@ -18,6 +18,7 @@ void backtracking(int idx, int last){
         int x = start.first;
         int y = start.second;
         for(int i=0; i<3; i++){
+            // cout<<num[sequence[i]].first<<" "<<num[sequence[i]].second<<'\n';
             int nx = num[sequence[i]].first;
             int ny = num[sequence[i]].second;
             dis += (abs(x-nx) + abs(y-ny));
@@ -46,8 +47,8 @@ int main() {
             cin>>arr[i][j];
             if(arr[i][j]-'0'>0&&arr[i][j]-'0'<10){
                 visited[arr[i][j]-'0'] = true;
-                num[arr[i][j]].first = i;
-                num[arr[i][j]].second = j;
+                num[arr[i][j]-'0'].first = i;
+                num[arr[i][j]-'0'].second = j;
             }
 
             if(arr[i][j]=='S'){
