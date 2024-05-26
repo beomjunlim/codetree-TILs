@@ -10,7 +10,7 @@ int max_num = 0;
 bool visited[20];
 
 
-void backtracking(int num){
+void backtracking(int num, int idx){
     if(num==m){
         int x,y,z;
         x = ans[0];
@@ -20,13 +20,14 @@ void backtracking(int num){
             x = z;
         }
         max_num = max(max_num, x);
+        return;
     }
 
-    for(int i=0; i<n; i++){
+    for(int i=idx; i<n; i++){
         if(!visited[i]){
             visited[i] = true;
             ans[num] = arr[i];
-            backtracking(num+1);
+            backtracking(num+1,i);
             visited[i] = false;
         }
     }
@@ -39,7 +40,7 @@ int main() {
         cin>>arr[i];
     }
 
-    backtracking(0);
+    backtracking(0,0);
     cout<<max_num<<'\n';
     return 0;
 }
