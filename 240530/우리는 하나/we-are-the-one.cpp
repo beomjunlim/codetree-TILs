@@ -56,7 +56,7 @@ void backtracking(int num, int idx_i, int idx_j){
         for(int j= idx_j; j<n; j++){
             city[num].first = i;
             city[num].second = j;
-            if(j+1<n)
+            if(j==n-1)
                 backtracking(num+1,i+1,0);
             else
                 backtracking(num+1,i, j+1);
