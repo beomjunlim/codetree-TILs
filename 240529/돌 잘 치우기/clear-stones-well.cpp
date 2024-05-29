@@ -18,12 +18,18 @@ bool InRange(int x, int y){
     return 0<=x&&x<n&&0<=y&&y<n;
 }
 
-void bfs(int x, int y){
+void bfs(){
     memset(visited, 0, sizeof(visited));
     queue<pair<int,int>> q;
-    q.push(make_pair(x,y));
-    visited[x][y] = true;
-    int cnt = 1;
+    int cnt = 0;
+
+    for(int i=0; i<k; i++){
+        int x = start[i].first;
+        int y = start[i].second;
+        q.push(make_pair(x,y));
+        visited[x][y] = true;
+        cnt++;
+    }
 
     while(!q.empty()){
         int nx = q.front().first;
@@ -46,11 +52,7 @@ void bfs(int x, int y){
 
 void backtracking(int num, int index){
     if(num==m){
-        for(int i=0; i<k; i++){
-            int x = start[i].first;
-            int y = start[i].second;
-            bfs(x,y);
-        }
+        bfs();
     }
 
     for(int i=index; i<idx; i++){
