@@ -52,14 +52,20 @@ void backtracking(int num, int idx_i, int idx_j){
         bfs();
     }
 
-    for(int i= idx_i; i<n; i++){
-        for(int j= idx_j; j<n; j++){
-            city[num].first = i;
-            city[num].second = j;
-            if(j==n-1)
-                backtracking(num+1,i+1,0);
-            else
-                backtracking(num+1,i, j+1);
+    // for(int i= idx_i; i<n; i++){
+    //     for(int j= idx_j; j<n; j++){
+    //         city[num].first = i;
+    //         city[num].second = j;
+    //         if(j==n-1)
+    //             backtracking(num+1,i+1,0);
+    //         else
+    //             backtracking(num+1,i, j+1);
+    //     }
+    // }
+        for(int i = idx_i; i < n; i++){
+        for(int j = (i == idx_i ? idx_j : 0); j < n; j++){
+            city[num] = make_pair(i, j);
+            backtracking(num + 1, i, j + 1);
         }
     }
 }
