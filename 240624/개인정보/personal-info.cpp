@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 using namespace std;
 
 class Student{
@@ -42,7 +43,8 @@ int main() {
 
     cout<<"name"<<'\n';
     for(int i=0; i<5; i++){
-        cout<<student[i].name<<" "<<student[i].height<<" "<<student[i].weight<<'\n';
+        cout<<student[i].name<<" "<<student[i].height<<" ";
+        cout<<fixed<<setprecision(1)<<student[i].weight<<'\n';
     }
 
     cout<<'\n';
@@ -50,7 +52,8 @@ int main() {
 
     cout<<"height"<<'\n';
     for(int i=0; i<5; i++){
-        cout<<student[i].name<<" "<<student[i].height<<" "<<student[i].weight<<'\n';
+        cout<<student[i].name<<" "<<student[i].height<<" ";
+        cout<<fixed<<setprecision(1)<<student[i].weight<<'\n';
     }
     return 0;
 }
