@@ -8,12 +8,13 @@ int main() {
     cin>>a;
     cin>>b;
 
+    int length = max(a.length(), b.length());
     sort(a.begin(), a.end());
     sort(b.begin(), b.end());
 
     string ans = "Yes";
 
-    for(int i=0; i<a.length(); i++){
+    for(int i=0; i<length; i++){
         if(a[i]!=b[i]){
             ans = "No";
             break;
