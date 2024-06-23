@@ -24,13 +24,19 @@ bool cmp_height(const Student &a, const Student &b){
 }
 
 int main() {
-    Student student[5] = {
-        Student("lee", 167, 40.1),
-        Student("kim", 149, 32.9),
-        Student("park", 161, 53.1),
-        Student("choi", 183, 70.3),
-        Student("jung", 155, 45.7)
-    };
+    Student student[5];
+
+    for(int i=0; i<5; i++){
+        string name;
+        int height;
+        float weight;
+        cin>>name;
+        cin>>height;
+        cin>>weight;
+        student[i].name = name;
+        student[i].height = height;
+        student[i].weight = weight;
+    }
 
     sort(student, student+5, cmp_name);
 
