@@ -7,6 +7,8 @@ using namespace std;
 pair<int, pair<int,int>> num[1001];
 
 bool cmp(pair<int, pair<int,int>> a, pair<int, pair<int,int>> b){
+    if(abs(a.second.first) + abs(a.second.second) == abs(b.second.first) + abs(b.second.second))
+        return a.first < b.first;
     return abs(a.second.first) + abs(a.second.second) < abs(b.second.first) + abs(b.second.second);
 }
 
