@@ -18,7 +18,12 @@ int main() {
     for(int i=0; i<n; i++){
         for(int j=0; j<m-2; j++){
             ans = max(ans, arr[i][j] + arr[i][j+1] + arr[i][j+2]);
-            ans = max(ans, arr[j][i] + arr[j+1][i] + arr[j+2][i]);
+        }
+    }
+
+    for(int i=0; i<n-2; i++){
+        for(int j=0; j<m; j++){
+            ans = max(ans, arr[i][j] + arr[i+1][j] + arr[i+2][j]);
         }
     }
 
