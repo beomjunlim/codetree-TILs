@@ -13,7 +13,7 @@ bool InRange(int x, int y){
 int getArea(int a, int b, int low, int col){
     for(int i=a; i<=low; i++){
         for(int j=b; j<=col; j++){
-            if(!InRange(i,j)||arr[i][j]<0)
+            if(!InRange(i,j)||arr[i][j]<=0)
                 return -1;
         }
     }
