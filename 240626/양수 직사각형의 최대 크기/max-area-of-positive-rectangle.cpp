@@ -11,13 +11,13 @@ bool InRange(int x, int y){
 }
 
 int getArea(int a, int b, int low, int col){
-    for(int i=a; i<a+low; i++){
-        for(int j=b; j<b+col; j++){
+    for(int i=a; i<=low; i++){
+        for(int j=b; j<=col; j++){
             if(!InRange(i,j)||arr[i][j]<0)
                 return -1;
         }
     }
-    return low*col;
+    return (low-a+1)*(col-b+1);
 }
 
 int main() {
@@ -31,14 +31,13 @@ int main() {
 
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
-            for(int low=1; low<=n; low++){
-                for(int col=1; col<=m; col++){
+            for(int low=i; low<=n; low++){
+                for(int col=j; col<=m; col++){
                     ans = max(ans, getArea(i,j,low,col));
                 }
             }
         }
     }
-
     cout<<ans;
     return 0;
 }
