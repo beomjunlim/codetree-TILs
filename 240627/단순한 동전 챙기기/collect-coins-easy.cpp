@@ -51,7 +51,7 @@ int main() {
         for(int j=0; j<n; j++){
             cin>>arr[i][j];
             int number = arr[i][j] -'0';
-            if(0<number&&number<9){
+            if(0<number&&number<=9){
                 num.push_back(make_pair(number, make_pair(i,j)));
             }
             if(arr[i][j]=='S'){
@@ -68,6 +68,7 @@ int main() {
     sort(num.begin(), num.end(), cmp);
 
     backtracking(0);
+
 
     if(ans==987654321)
         ans = -1;
