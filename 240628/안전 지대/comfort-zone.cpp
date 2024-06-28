@@ -4,7 +4,7 @@ using namespace std;
 
 int n,m;
 int max_k = 0;
-int ans_k = 0;
+int ans_k = 1;
 int ans = 0;
 int dx[] = {0,0,-1,1};
 int dy[] = {-1,1,0,0};
@@ -49,7 +49,7 @@ int main() {
         }
     }
 
-    for(int i=0; i<=max_k; i++){
+    for(int i=1; i<=max_k; i++){
         madeArea(i);
         memset(visited, false, sizeof(visited));
         int cnt = 0;
@@ -69,6 +69,6 @@ int main() {
         }
     }
 
-    cout<<ans<<" "<<ans_k;
+    cout<<ans_k<<" "<<ans;
     return 0;
 }
