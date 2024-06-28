@@ -49,7 +49,7 @@ int main() {
         }
     }
 
-    for(int i=1; i<=max_k; i++){
+    for(int i=0; i<=max_k; i++){
         madeArea(i);
         memset(visited, false, sizeof(visited));
         int cnt = 0;
