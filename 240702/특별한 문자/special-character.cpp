@@ -14,10 +14,10 @@ int main() {
         maps[str[i]]++;
     }
 
-    for(auto it : maps){
-        if(it.second==1){
-            cout<<it.first;
+    for(int i=0; i<str.length(); i++){
+        if(maps[str[i]]==1){
             sw = true;
+            cout<<str[i];
             break;
         }
     }
