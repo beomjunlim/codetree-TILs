@@ -13,20 +13,18 @@ int main() {
     }
 
     double ans = 0.00;
-    int size = n - 1;
+    priority_queue<int> pq;
+    pq.push(-arr[n-1]);
+    int sum = arr[n-1];
 
-    for(int k=1; k<n-1; k++){
-        priority_queue<int> pq;
-        int sum = 0;
-        size--;
-        for(int i=k; i<n; i++){
-            sum += arr[i];
-            pq.push(-arr[i]);
-        }
-        sum += pq.top();
-        double mean = double(sum/size);
-        if(ans < mean)
-            ans = mean;
+    for(int i=n-2; i>=1; i--){
+        pq.push(-arr[i]);
+        sum += arr[i];
+
+        double avg = (double)(sum - (-pq.top())) / (n-i-1);
+
+        if(ans < avg)
+            ans = avg;
     }
 
     cout<<fixed;
