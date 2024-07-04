@@ -27,7 +27,10 @@ int main() {
             pq.push(-x1);
             pq.push(-x2);
 
-            int num = x1*x2*x3;
+            long long num = 1;
+            num *= (long long)x1;
+            num *= (long long)x2;
+            num *= (long long)x3;
             cout<<num<<'\n';
         }
     }
