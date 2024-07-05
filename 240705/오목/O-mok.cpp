@@ -2,6 +2,7 @@
 using namespace std;
 
 int arr[19][19];
+bool sw = false;
 
 int dx_a[] = {0,0,0,0};
 int dy_a[] = {1,2,3,4};
@@ -25,7 +26,7 @@ bool check(int color, int row, int col){
     bool sw_c = false;
     bool sw_d = false;
     int i_a,i_b,i_c,i_d = 0;
-    
+
     for(i_a; i_a<4; i_a++){
         int nx = row + dx_a[i_a];
         int ny = col + dy_a[i_a];
@@ -83,21 +84,25 @@ bool check(int color, int row, int col){
         sw_d = true;
 
     if(sw_a){
+        bool sw = true;
         cout<<color<<'\n';
         cout<<row+dx_a[1]+1<<" "<<col+dy_a[1]+1<<'\n';
         return true;
     }
     else if(sw_b){
+        bool sw = true;
         cout<<color<<'\n';
         cout<<row+dx_b[1]+1<<" "<<col+dy_b[1]+1<<'\n';
         return true;
     }
     else if(sw_c){
+        bool sw = true;
         cout<<color<<'\n';
         cout<<row+dx_c[1]+1<<" "<<col+dy_c[1]+1<<'\n';
         return true;
     }
     else if(sw_d){
+        bool sw = true;
         cout<<color<<'\n';
         cout<<row+dx_d[1]+1<<" "<<col+dy_d[1]+1<<'\n';
         return true;
@@ -119,6 +124,9 @@ int main() {
                     break;
             }
         }
-    }   
+    }
+
+    if(!sw)
+        cout<<0<<'\n';
     return 0;
 }
