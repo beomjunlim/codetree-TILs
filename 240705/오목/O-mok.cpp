@@ -84,25 +84,25 @@ bool check(int color, int row, int col){
         sw_d = true;
 
     if(sw_a){
-        bool sw = true;
+        sw = true;
         cout<<color<<'\n';
         cout<<row+dx_a[1]+1<<" "<<col+dy_a[1]+1<<'\n';
         return true;
     }
     else if(sw_b){
-        bool sw = true;
+        sw = true;
         cout<<color<<'\n';
         cout<<row+dx_b[1]+1<<" "<<col+dy_b[1]+1<<'\n';
         return true;
     }
     else if(sw_c){
-        bool sw = true;
+        sw = true;
         cout<<color<<'\n';
         cout<<row+dx_c[1]+1<<" "<<col+dy_c[1]+1<<'\n';
         return true;
     }
     else if(sw_d){
-        bool sw = true;
+        sw = true;
         cout<<color<<'\n';
         cout<<row+dx_d[1]+1<<" "<<col+dy_d[1]+1<<'\n';
         return true;
