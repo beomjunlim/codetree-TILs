@@ -28,7 +28,7 @@ int main() {
     int ans = 0;
     for(int i=min_size; i<=max_size; i++){
         int sum = 0;
-        for(int j=i; j<=i+k; j++){
+        for(int j=i; j<=i+k&&j<=max_size; j++){
             if(visited[j]){
                 if(arr[j]=='H')
                     sum +=2;
