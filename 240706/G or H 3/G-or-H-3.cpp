@@ -22,8 +22,11 @@ int main() {
         min_size = min(min_size, x);
     }
 
+    if(min_size==10001)
+        min_size = 0;
+
     int ans = 0;
-    for(int i=min_size; i<=max_size-k; i++){
+    for(int i=min_size; i<=max_size; i++){
         int sum = 0;
         for(int j=i; j<=i+k; j++){
             if(visited[j]){
