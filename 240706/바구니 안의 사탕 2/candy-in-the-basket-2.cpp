@@ -13,7 +13,7 @@ int main() {
     for(int i=0; i<n; i++){
         int x,y;
         cin>>x>>y;
-        maps[y] = x;
+        maps[y] += x;
         size = max(size,y);
     }
 
@@ -26,11 +26,14 @@ int main() {
                 sum += maps[j];
         }
 
-        for(int j=i; j>=i-k; j--){
+        for(int j=i; j>=i-k&&j>=0; j--){
             if(maps.find(j)!=maps.end())
                 sum += maps[j];
         }
-        sum -= maps[i];
+
+        if(maps.find(i)!=maps.end())
+            sum -= maps[i];
+
         ans = max(ans, sum);
     }
 
