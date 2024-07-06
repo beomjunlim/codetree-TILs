@@ -33,7 +33,7 @@ int main() {
             if(v[j].second=='H')
                 H++;
             
-            if(G==H)
+            if(G==H||(G!=0&&H==0)||(G==0&&H!=0))
                 ans = max(ans, v[j].first - v[i].first);
         }
     }
