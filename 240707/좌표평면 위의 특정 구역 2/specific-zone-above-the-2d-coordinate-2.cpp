@@ -13,7 +13,7 @@ int main() {
         cin>>X[i]>>Y[i];
     }
 
-    int ans = 987654321;
+    long long ans = 9876543210000;
 
 
     for(int i=0; i<n; i++){
@@ -31,7 +31,8 @@ int main() {
         }
         int ans_x = max_x - min_x;
         int ans_y = max_y - min_y;
-        ans = min(ans, ans_x*ans_y);
+        long long area = ans_x * ans_y;
+        ans = min(ans, area);
     }
     cout<<ans;
     return 0;
