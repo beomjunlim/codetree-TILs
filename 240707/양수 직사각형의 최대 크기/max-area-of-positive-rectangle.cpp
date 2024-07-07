@@ -18,7 +18,7 @@ int check(int x, int y, int k, int l){
 
     for(int i=x; i<x+k; i++){
         for(int j=y; j<y+l; j++){
-            if(arr[i][j]<0)
+            if(arr[i][j]<=0)
                 return 0;
         }
     }
