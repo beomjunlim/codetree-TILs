@@ -19,21 +19,17 @@ int main() {
         int y = Y[i];
         int x2,y2;
         for(int j=0; j<n; j++){
-            if(i!=j){
-                if(X[j]==x)
-                    y2 = Y[j];
+            if(X[j]==x&&i!=j){
+                y2 = Y[j];
+                for(int k=0; k<n; k++){
+                    if(Y[k]==y&&i!=j&&j!=k){
+                        x2 = X[k];
+                        long long area = abs(x-x2)*abs(y-y2);
+                        ans = max(ans, area);
+                    }
+                }
             }
-        }
-
-        for(int j=0; j<n; j++){
-            if(i!=j){
-                if(Y[j]==y)
-                    x2 = X[j];
-            }
-        }
-
-        long long area = abs(x-x2)*abs(y-y2);
-        ans = max(ans, area);
+        }  
     }
     cout<<ans;
     return 0;
