@@ -19,7 +19,7 @@ int main() {
 
         for(int j=0; j<n; j++){
             if(i!=j){
-                if(bomb==bombs[j]&&abs(i-j)<=3){
+                if(bomb==bombs[j]&&abs(i-j)<=k){
                     ans = max(ans,bomb);
                 }
             }
