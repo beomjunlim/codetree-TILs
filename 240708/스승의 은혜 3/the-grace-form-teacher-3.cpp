@@ -29,7 +29,7 @@ int main() {
         int cnt = 1;
         for(int j=0; j<n; j++){
             if(i!=j){
-                int num = v[j].first + v[i].second;
+                int num = v[j].first + v[j].second;
                 if(sum - num >=0){
                     sum -= num;
                     cnt++;
