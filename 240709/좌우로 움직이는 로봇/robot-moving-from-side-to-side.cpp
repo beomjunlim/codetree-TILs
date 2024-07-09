@@ -6,8 +6,8 @@ int main() {
     int n,m;
     cin>>n>>m;
 
-    int A[100001];
-    int B[100001];
+    int A[1000001];
+    int B[1000001];
     A[0] = 0;
     B[0] = 0;
     int a = 1;
