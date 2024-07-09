@@ -4,8 +4,8 @@ using namespace std;
 int main() {
     int n,m;
     cin>>n>>m;
-    int A[1001];
-    int B[1001];
+    long long A[1000001];
+    long long B[1000001];
 
     int idx_a = 0;
     int idx_b = 0;
