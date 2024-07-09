@@ -33,10 +33,27 @@ int main() {
     }
 
     int ans = 0;
+    int num = 0;
     for(int i=1; i<=sum; i++){
-        if(A[i]==B[i]){
-            if((A[i-1]>=B[i-1]&&A[i+1]<B[i+1])||(A[i-1]<=B[i-1]&&A[i+1]>B[i+1]))
-                ans++;
+        if(num==0&&A[i]!=B[i]){
+            if(A[i]>B[i])
+                num = 1;
+            if(A[i]<B[i])
+                num = 2;
+        }
+        if(num!=0&&A[i]!=B[i]){
+            if(num==1){
+                if(A[i]<B[i]){
+                    ans++;
+                    num = 2;
+                }
+            }
+            else if(num==2){
+                if(A[i]>B[i]){
+                    ans++;
+                    num = 1;
+                }
+            }
         }
     }
     cout<<ans;
