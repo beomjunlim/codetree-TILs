@@ -34,15 +34,17 @@ int main() {
 
         if(arr[a]>0&&arr[b]==0){
             arr[a]--;
-            arr[b] = k;
+            if(!visited[b])
+                arr[b] = k;
             visited[b] = true;
         }
         else if(arr[a]==0&&arr[b]>0){
             arr[b]--;
-            arr[a] = k;
+            if(!visited[a])
+                arr[a] = k;
             visited[a] = true;
         }
-        else if(arr[a]>0&&arr[b]>0){
+        else if(visited[a]&&visited[b]){
             arr[a]--;
             arr[b]--;
         }
