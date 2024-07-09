@@ -5,10 +5,10 @@ int main() {
     int a,b,c;
     cin>>a>>b>>c;
 
-    int ans = 0;
-    int day;
-    int hour;
-    int minute;
+
+    int day = 0;
+    int hour = 0;
+    int minute = 0;
 
     if(a==11){
         hour += b- 11;
