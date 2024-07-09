@@ -22,20 +22,25 @@ int main() {
         }
     }
 
-    if(m1==1||m1==3||m1==5||m1==7||m1==8||m1==10||m1==12){
-        int temp = 31 - d1 + 1;
-        day += temp;
+    if(m1!=m2){
+        if(m1==1||m1==3||m1==5||m1==7||m1==8||m1==10||m1==12){
+            int temp = 31 - d1 + 1;
+            day += temp;
+        }
+        else if(m1==4||m1==6||m1==9||m1==11){
+            int temp = 30 - d1 + 1;
+            day += temp;
+        }
+        else if(m1==2){
+            int temp = 28 - d1 + 1;
+            day += temp;
+        }
+        day += d2;
     }
-    else if(m1==4||m1==6||m1==9||m1==11){
-        int temp = 30 - d1 + 1;
-        day += temp;
-    }
-    else if(m1==2){
-        int temp = 28 - d1 + 1;
-        day += temp;
+    else{
+        day += (d2-d1+1);
     }
 
-    day += d2;
     cout<<day;
     return 0;
 }
