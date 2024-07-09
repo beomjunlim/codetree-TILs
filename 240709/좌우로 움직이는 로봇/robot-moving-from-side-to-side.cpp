@@ -53,18 +53,18 @@ int main() {
 
     if(num==sum_b){
         int number = A[sum_a];
-        for(int i=sum_a; i<=num; i++)
+        for(int i=sum_a; i<num; i++)
             A[i] = number;
     }
 
     if(num==sum_a){
         int number = B[sum_b];
-        for(int i=sum_b; i<=num; i++)
+        for(int i=sum_b; i<num; i++)
             B[i] = number;
     }
 
     
-    bool sw = false;
+    bool sw = true;
     int ans = 0;
     for(int i=1; i<=num; i++){
         if(A[i]==B[i]&&!sw){
