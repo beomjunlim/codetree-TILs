@@ -28,17 +28,17 @@ int main() {
 
     if(str=="Mon")
         ans++;
-    if(str=="Tue"&&diff>=1)
+    if(str=="Tue"&&dis>=1)
         ans++;
-    if(str=="Wed"&&diff>=2)
+    if(str=="Wed"&&dis>=2)
         ans++;
-    if(str=="Thu"&&diff>=3)
+    if(str=="Thu"&&dis>=3)
         ans++;
-    if(str=="Fri"&&diff>=4)
+    if(str=="Fri"&&dis>=4)
         ans++;
-    if(str=="Sat"&&diff>=5)
+    if(str=="Sat"&&dis>=5)
         ans++;
-    if(str=="Sun"&&diff>=6)
+    if(str=="Sun"&&dis>=6)
         ans++;
     cout<<ans;
     return 0;
