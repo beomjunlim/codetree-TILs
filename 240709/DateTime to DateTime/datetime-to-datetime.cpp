@@ -59,6 +59,9 @@ int main() {
 
     hour += day*24;
     minute += hour*60;
-    cout<<minute;
+    if(minute<0)
+        cout<<-1;
+    else
+        cout<<minute;
     return 0;
 }
