@@ -10,13 +10,15 @@ int low[11];
 
 void backtracking(int cnt){
     if(cnt==n){
-        low[0] = 0;
         int sum = 0;
         int idx = low[0];
         for(int i=1; i<n; i++){
+            if(arr[idx][low[i]]==0)
+                return;
             sum += arr[idx][low[i]];
             idx = low[i];
         }
+        
         sum += arr[idx][0];
         ans = min(ans, sum);
         return;
@@ -39,7 +41,7 @@ int main() {
             cin>>arr[i][j];
         }
     }    
-
+    low[0] = 0;
     backtracking(1);
     cout<<ans;
     return 0;
