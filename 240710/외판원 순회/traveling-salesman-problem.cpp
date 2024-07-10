@@ -19,6 +19,8 @@ void backtracking(int cnt){
             idx = low[i];
         }
         
+        if(arr[idx][0]==0)
+            return;
         sum += arr[idx][0];
         ans = min(ans, sum);
         return;
