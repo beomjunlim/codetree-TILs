@@ -4,8 +4,8 @@
 using namespace std;
 
 int m;
-vector<int> tree[1001];
-bool visited[1001];
+vector<int> tree[10001];
+bool visited[10001];
 int root = -1;
 
 bool find_root(){
