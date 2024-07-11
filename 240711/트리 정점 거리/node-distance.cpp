@@ -37,6 +37,7 @@ int main() {
         memset(visited, false, sizeof(visited));
         int x,y;
         cin>>x>>y;
+        visited[x] = true;
         dfs(x,y,0);
         cout<<ans<<'\n';
     }
