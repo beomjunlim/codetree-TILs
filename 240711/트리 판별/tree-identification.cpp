@@ -3,23 +3,18 @@
 #include <cstring>
 using namespace std;
 
-int m;
+int n,m;
 vector<int> tree[10001];
+int deg[100001];
+bool used[10001];
 bool visited[10001];
 int root = -1;
 
 bool find_root(){
-    for(int i=1; i<=m; i++){
-        for(int j=0; j<tree[i].size(); j++){
-            visited[tree[i][j]] = true;
-        }
-    }
-
     vector<int> v;
-    for(int i=1; i<=m; i++){
-        if(!visited[i]){
+    for(int i=1; i<=n; i++){
+        if(used[i]&&deg[i]==0)
             v.push_back(i);
-        }
     }
 
     if(v.size()!=1)
@@ -31,11 +26,11 @@ bool find_root(){
 }
 
 void dfs(int x){
-    visited[x] = true;
     for(int i=0; i<tree[x].size(); i++){
-        int num = tree[x][i];
-        if(!visited[num]){
-            dfs(num);
+        int y= tree[x][i];
+        if(!visited[y]){
+            visited[y] = true;
+            dfs(y);
         }
     }
 }
@@ -47,6 +42,9 @@ int main() {
         int x,y;
         cin>>x>>y;
         tree[x].push_back(y);
+        n = max(n, max(x,y));
+        used[x] = used[y] = true;
+        deg[y]++;
     }
 
     int ans;
@@ -54,23 +52,30 @@ int main() {
     if(!find_root())
         ans = 0;
     else{
-        memset(visited, false, sizeof(visited));
-        dfs(root);
-        bool sw = false;
-
-        for(int i=1; i<=m; i++){
-            if(!visited[i]){
-                sw = true;
-                break;
-            }
+        bool sw = true;
+        for(int i=1; i<=n; i++){
+            if(i!=root&&used[i]&&deg[i]!=1)
+                sw = false;
         }
 
-        if(sw)
+        if(!sw)
             ans = 0;
-        else
-            ans = 1;
-    }
+        else{
+            visited[root] = true;
+            dfs(root);
 
-    cout<<ans;
+            bool sw_a = true;
+            for(int i=1; i<=n; i++){
+                if(used[i]&&!visited[i])
+                    sw_a = false;
+            }
+
+            if(!sw_a)
+                ans = 0;
+            else
+                ans = 1;
+        }
+    }
+   cout<<ans;
     return 0;
 }
