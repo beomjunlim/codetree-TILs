@@ -11,7 +11,7 @@ int main() {
     for(int i=0; i<n; i++)
         cin>>arr[i];
     
-    int ans = 0;
+    int ans = 1;
 
     int num = arr[0];
     int cnt = 1;
@@ -24,7 +24,7 @@ int main() {
             cnt = 1;
         }
     }
-
+    
     cout<<ans;
     return 0;
 }
