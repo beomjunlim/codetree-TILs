@@ -3,37 +3,16 @@
 using namespace std;
 
 int main() {
-    int cnt = 0;
     int arr[3];
 
     for(int i=0; i<3; i++)
         cin>>arr[i];
 
-    while(true){
-        if(arr[0]+1==arr[1]&&arr[1]+1==arr[2]){
-            break;
-        }
-        else if(arr[0]+1==arr[1]&&arr[1]+1!=arr[2]){
-            cnt++;
-            arr[0] = arr[1] + 1;
-        }
-        else if(arr[0]+1!=arr[1]&&arr[1]+1==arr[2]){
-            cnt++;
-            arr[2] = arr[1] - 1;
-        }
-        else if(arr[0]+1!=arr[1]&&arr[1]+1!=arr[2]){
-            if(arr[1]-arr[0]>arr[2]-arr[1]){
-                cnt++;
-                arr[2] = arr[1] - 1;
-            }
-            else{
-                cnt++;
-                arr[0] = arr[1] + 1;
-            }
-        }
-        sort(arr, arr+3);
-    }
+    int diff1 = arr[1] - arr[0];
+    int diff2 = arr[2] - arr[1];
 
-    cout<<cnt;
+    int cnt = max(diff1, diff2) - 1;
+
+    cout << cnt;
     return 0;
 }
