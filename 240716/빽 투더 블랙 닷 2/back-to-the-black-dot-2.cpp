@@ -51,19 +51,36 @@ int main() {
 
     dijkstra(a,1);
     dijkstra(b,2);
+    bool sw = false;
     int ans = 987654321;
 
     for(int i=1; i<=n; i++){
         if(i!=a&&i!=b){
-            int start = i;
-            dijkstra(start,0);
-
-            int cnt = min(dist[a][0] + dist[b][1] + dist[start][2], dist[b][0] + dist[a][2] + dist[start][1]);
-            ans = min(ans, cnt);
+            bool sw_a = false;
+            bool sw_b = false;
+            if(dist[i][1]!=987654321&&dist[b][1]!=987654321&&dist[i][2]!=987654321)
+                sw_a = true;
+            if(dist[i][2]!=987654321&&dist[a][2]!=987654321&&!dist[i][1]!=987654321)
+                sw_b = true;
+            if(sw_a&&!sw_b){
+                int cnt = dist[i][1] + dist[b][1] + dist[i][2];
+                ans = min(ans,cnt);
+                sw = true;
+            }
+            else if(!sw_a&&sw_b){
+                int cnt = dist[i][2] + dist[a][2] + dist[i][1];
+                ans = min(ans,cnt);
+                sw = true;
+            }
+            else if(sw_a&&sw_b){
+                int cnt = min(dist[i][1] + dist[b][1] + dist[i][2], dist[i][2] + dist[a][2] + dist[i][1]);
+                ans = min(ans,cnt);
+                sw = true;
+            }
         }
     }
     
-    if(ans==987654321)
+    if(!sw)
         ans = -1;
     cout<<ans;
     return 0;
