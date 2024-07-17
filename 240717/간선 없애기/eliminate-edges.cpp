@@ -53,21 +53,27 @@ int main() {
 
     dijkstra();
     int num = dist[n];
-    vector<pair<int,int>> a; 
+    vector<pair<int,int>> v; 
     int ans = 0;
+    int idx = n;
+    while(true){
+        int a = path[idx];
+        v.push_back(make_pair(a,idx));
+        idx = a;
+        if(idx==1)
+            break;
+    }
 
-    for(int i=2; i<=n; i++)
-        a.push_back(make_pair(i,path[i]));
-
-    for(int i=0; i<a.size(); i++){
-        int x = a[i].first;
-        int y = a[i].second;
+    for(int i=0; i<v.size(); i++){
+        int x = v[i].first;
+        int y = v[i].second;
         int number = arr[x][y];
 
         arr[x][y] = 0;
         arr[y][x] = 0;
 
         dijkstra();
+        
         if(num!=dist[n])
             ans++;
         
