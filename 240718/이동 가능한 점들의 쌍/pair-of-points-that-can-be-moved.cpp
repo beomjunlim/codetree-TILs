@@ -10,13 +10,6 @@ int main() {
 
     for(int i=1; i<=n; i++){
         for(int j=1; j<=n; j++){
-            if(i<=p||j<=p)
-                visited[i][j] = true;
-        }
-    }
-
-    for(int i=1; i<=n; i++){
-        for(int j=1; j<=n; j++){
             arr[i][j] = (int)1e9;
         }
         arr[i][i] = 0;
@@ -30,8 +23,15 @@ int main() {
             visited[a][b] = true;
     }
 
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=n; j++){
+            if((i<=p||j<=p)&&arr[i][j]!=(int)1e9)
+                visited[i][j] = true;
+        }
+    }
+
     int ans = 0;
-    int cnt = 0;
+    long long cnt = 0;
 
     for(int k=1; k<=n; k++){
         for(int i=1; i<=n; i++){
