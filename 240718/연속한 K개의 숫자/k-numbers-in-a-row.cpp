@@ -1,4 +1,5 @@
 #include <iostream>
+#include< algorithm>
 using namespace std;
 
 int main() {
@@ -6,20 +7,23 @@ int main() {
     cin>>n>>k>>b;
 
     bool arr[100001] = {false};
+    int sum[100001] = {0};
     for(int i=0; i<b; i++){
         int a;
         cin>>a;
         arr[a] = true;
     }
 
+    for(int i=1; i<=n; i++){
+        if(arr[i])
+            sum[i] = sum[i-1] + 1;
+        else
+            sum[i] = sum[i-1];
+    }
+
     int ans = n;
     for(int i=k; i<=n; i++){
-        int cnt = 0;
-        for(int j=0; j<k; j++){
-            if(arr[i-j])
-                cnt++;
-        }
-        ans = min(ans,cnt);
+        ans = min(ans, sum[i] - sum[i-k]);
     }
 
     cout<<ans;
