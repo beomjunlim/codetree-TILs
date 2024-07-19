@@ -6,9 +6,9 @@ int main() {
     int n,q;
     cin>>n>>q;
 
-    int arr[100001];
-    int sum[100001] = {0};
-    bool visited[100001] = {false};
+    int arr[1000001];
+    int sum[1000001] = {0};
+    bool visited[1000001] = {false};
     int max_num = 0;
     for(int i=0; i<n; i++){
         cin>>arr[i];
@@ -34,7 +34,7 @@ int main() {
             sum[a] = sum[max_num];
         if(b>max_num)
             sum[b] = sum[max_num];
-            
+
         if(visited[a]&&visited[b])
             cout<<sum[b] - sum[a] + 1<<'\n';
         else if(visited[a]&&!visited[b])
