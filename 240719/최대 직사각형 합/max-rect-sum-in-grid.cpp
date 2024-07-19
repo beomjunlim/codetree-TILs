@@ -26,7 +26,7 @@ int main() {
         }
     }
 
-    int ans = 0;
+    int ans = -(int)1e9;
     for(int i=1; i<=n; i++){
         for(int j=1; j<=n; j++){
             for(int k=i; k<=n; k++){
