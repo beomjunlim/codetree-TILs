@@ -9,7 +9,7 @@ int main() {
     int sum[1001][1001][3];
 
     for(int i=1; i<=n; i++){
-        for(int j=1; j<=n; j++){
+        for(int j=1; j<=m; j++){
             cin>>arr[i][j];
         }
     }
@@ -34,7 +34,7 @@ int main() {
     int b = 0;
     int c = 0;
     
-    for(int i=2; i<=n; i++){
+    for(int i=2; i<=m; i++){
         if(arr[1][i]=='a'){
             a = 1;
             b = 0;
@@ -77,7 +77,7 @@ int main() {
     }
 
     for(int i=2; i<=n; i++){
-        for(int j=2; j<=n; j++){
+        for(int j=2; j<=m; j++){
             if(arr[i][j]=='a'){
                 a = 1;
                 b = 0;
