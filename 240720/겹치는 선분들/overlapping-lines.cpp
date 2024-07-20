@@ -11,6 +11,7 @@ int main() {
     vector<pair<int,int>> sum;
 
     int idx = 0;
+    int ans = 0;
     for(int i=0; i<n; i++){
         int a;
         char b;
@@ -25,8 +26,6 @@ int main() {
         }
     }
 
-    sort(arr.begin(), arr.end());
-
     for(int i=0; i<n; i++){
         int x = arr[i].first;
         int y = arr[i].second;
@@ -38,15 +37,17 @@ int main() {
     sort(sum.begin(), sum.end());
 
     int sum_val = 0;
-    int ans = 0;
     for(int i=0; i<2*n; i++){
         int x = sum[i].first;
         int y = sum[i].second;
 
+        if(sum_val>=k){
+            int prev_x = sum[i-1].first;
+            ans += x - prev_x;
+        }
         sum_val += y;
-        if(sum_val>=k)
-            ans++;
     }
+
     cout<<ans;
     return 0;
 }
