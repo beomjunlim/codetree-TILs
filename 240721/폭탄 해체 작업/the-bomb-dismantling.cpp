@@ -1,12 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 using namespace std;
 
 bool cmp(pair<int,int> a, pair<int,int> b){
-    if(a.first==b.first)
-        return a.second > b.second;
-    return a.first < b.first;
+    return a.second > b.second;
 }
 
 int main() {
@@ -14,25 +13,29 @@ int main() {
     cin>>n;
 
     vector<pair<int,int>> bombs;
-
     for(int i=0; i<n; i++){
         int a,b;
-        cin>>b>>a;
+        cin>>a>>b; // score time
         bombs.push_back(make_pair(a,b));
     }
 
     sort(bombs.begin(), bombs.end(), cmp);
 
-    int end = bombs[0].first;
-    int ans = bombs[0].second;
+    priority_queue<int>pq;
+    int bomb_idx = 0;
+    int ans = 0;
+    
+    for(int t=10000; t>=1; t--){
+        while(bomb_idx<n&&bombs[bomb_idx].second>=t){
+            pq.push(bombs[bomb_idx].first);
+            bomb_idx++;
+        }
 
-    for(int i=1; i<n; i++){
-        if(end<bombs[i].first){
-            end = bombs[i].first;
-            ans += bombs[i].second;
+        if(!pq.empty()){
+            ans += pq.top();
+            pq.pop();
         }
     }
-
     cout<<ans;
     return 0;
 }
