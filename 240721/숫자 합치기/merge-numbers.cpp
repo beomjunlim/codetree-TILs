@@ -1,41 +1,33 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
+#include <queue>
 using namespace std;
 
-bool cmp(int a, int b){
-    return a > b;
-}
 
 int main() {
     int n;
     cin>>n;
-
-    vector<int> arr;
+    
+    priority_queue<long long> pq;
 
     for(int i=0; i<n; i++){
         int x;
         cin>>x;
-        arr.push_back(x);
+        pq.push(-x);
     }
 
-    sort(arr.begin(), arr.end(), cmp);
+    long long sum = 0;
 
-    int idx = n-1;
-    int sum = 0;
-    while(arr.size()>1){
-        int x = arr[idx];
-        idx--;
-        arr.pop_back();
-        int y = arr[idx];
-        arr.pop_back();
-        arr.push_back(x+y);
-        sum+= (x+y);
-        sort(arr.begin(), arr.end(), cmp);
+    while(pq.size()>1){
+        long long x = -pq.top();
+        pq.pop();
+        long long y = -pq.top();
+        pq.pop();
+        long long num = x + y;
+        sum += num;
+        pq.push(-num);
     }
 
     cout<<sum;
-
-
     return 0;
 }
