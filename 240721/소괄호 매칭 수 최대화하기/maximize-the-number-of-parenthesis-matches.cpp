@@ -1,120 +1,47 @@
-// #include <iostream>
-// #include <vector>
-// #include <algorithm>
-// using namespace std;
-
-// bool cmp(string a, string b){
-//     int a_num = 0;
-//     int a_sum = 0;
-//     int b_num = 0;
-//     int b_sum = 0;
-
-//     for(int i=0; i<a.length(); i++){
-//         if(a[i]=='(')
-//             a_num++;
-//         else
-//             a_sum += a_num;
-//     }
-
-//     for(int i=0; i<b.length(); i++){
-//         if(b[i]=='(')
-//             b_num++;
-//         else
-//             b_sum += b_num;
-//     }
-
-//     return a_sum > b_sum;
-// }
-
-// int main() {
-//     int n;
-//     cin>>n;
-
-//     vector<string> arr;
-//     for(int i=0; i<n; i++){
-//         string str;
-//         cin>>str;
-//         arr.push_back(str);
-//     }
-
-//     sort(arr.begin(), arr.end(), cmp);
-//     string s = "";
-
-//     for(int i=0; i<n; i++){
-//         s += arr[i];
-//     }
-
-//     int num = 0;
-//     int sum = 0;
-//     for(int i=0; i<s.length(); i++){
-//         if(s[i]=='(')
-//             num++;
-//         else
-//             sum += num;
-//     }
-
-//     for(int i=0; i<s.length(); i++)
-//         cout<<s[i];
-//     cout<<sum;
-
-//     return 0;
-// }
-
-
 #include <iostream>
-#include <algorithm>
-#include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-#define MAX_N 100005
-#define MAX_S 500005
-
-int n;
-vector<pair<int,int>> s;
-long long ans = 0;
-
-bool cmp(pair<int,int> a, pair<int,int> b) {
-    long long sum1 = (long long) a.first * b.second;
-    long long sum2 = (long long) b.first * a.second;
-
-    return sum1 > sum2;
+bool cmp(pair<int,int> a, pair<int,int> b){
+    return (long long) a.first * b.second > (long long) b.first * a.second;
 }
 
 int main() {
+    int n;
+    cin>>n;
+
+    long long ans =0;
+    vector<pair<int,int>> arr;
     
-    cin >> n;
-
-    for (int i = 0; i < n; i++) {
+    for(int i=0; i<n; i++){
         string str;
-        cin >> str;
+        cin>>str;
 
-        int open = 0, close = 0;
-        for (int j = 0; j < (int) str.length(); j++) {
-            if (str[j] == '(') {
-                open++;
-            }
-            else {
-                close++;
-                ans += open;
+        int start = 0;
+        int end = 0;
+        for(int j=0; j<str.length(); j++){
+            if(str[j]=='(')
+                start++;
+            else{
+                end++;
+                ans += start;
             }
         }
-        s.push_back(make_pair(open, close));
+        arr.push_back(make_pair(start,end));
     }
 
-    sort(s.begin(), s.end(), cmp);
+    sort(arr.begin(), arr.end(), cmp);
 
-    int open_sum = 0;
-    for (int i = 0; i < n; i++) {
-        int open = s[i].first;
-        int close = s[i].second;
+    int sum = 0;
+    for(int i=0; i<n; i++){
+        int start = arr[i].first;
+        int end = arr[i].second;
 
-        ans += (long long) open_sum * close;
-
-        open_sum += open;
+        ans += (long long)sum * end;
+        sum += start;
     }
-
-    cout << ans;
+    cout<<ans;
 
     return 0;
 }
