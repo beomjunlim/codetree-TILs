@@ -10,10 +10,11 @@ int main() {
         cin>>arr[i];
     
     long long ans = 0;
-    for(int i=0; i<n-1; i++){
-        for(int j=i+1; j<n; j++){
-            ans = max(ans, arr[j] - arr[i]);
-        }
+    long long price = arr[0];
+    for(int i=1; i<n; i++){
+        ans = max(ans, arr[i] - price);
+        if(price > arr[i])
+            price = arr[i];
     }
     cout<<ans;
     return 0;
