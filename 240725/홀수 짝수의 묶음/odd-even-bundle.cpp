@@ -26,6 +26,9 @@ int main() {
             odd-=2;
             even++;
         }
+        
+        if(even>odd+1)
+            even = odd+1;
     }
 
     cout<<even+odd;
