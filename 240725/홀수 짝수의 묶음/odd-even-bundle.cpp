@@ -18,12 +18,13 @@ int main() {
             odd++;
     }
 
-    while(even!=odd+1){
-        if(even>odd)
-            even--;
-        else if(even<odd){
-            even++;
+    if(even>odd+1){
+        even = odd+1;
+    }
+    else{
+        while(even<odd){
             odd-=2;
+            even++;
         }
     }
 
