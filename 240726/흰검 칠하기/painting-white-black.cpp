@@ -69,7 +69,7 @@ int main() {
                 else if(arr[j]==3)
                     arr[j] = 4;
                 else if(arr[j]==5)
-                    arr[j] = 6;
+                    arr[j] = 10;
                 else if(arr[j]==6)
                     arr[j] = 10;
                 else if(arr[j]==7)
