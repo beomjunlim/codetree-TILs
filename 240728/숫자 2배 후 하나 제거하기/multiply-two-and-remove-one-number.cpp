@@ -17,9 +17,10 @@ int main() {
     
     for(int i=0; i<n; i++){
         temp[i] = 2*temp[i];
-        vector<int> v;
+        
         for(int j=0; j<n; j++){
             int sum = 0;
+            vector<int> v;
             for(int k=0; k<n; k++){
                 if(k!=j){
                     v.push_back(temp[k]);
