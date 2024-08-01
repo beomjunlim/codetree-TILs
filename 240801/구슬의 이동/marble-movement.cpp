@@ -61,15 +61,15 @@ int main() {
                             int x = prev_x;
 
                             for(int v=0; v<num; v++){
-                                if(direction==0)
-                                    x--;
-                                else
-                                    x++;
-
                                 if(x==1)
                                     direction=1;
                                 if(x==n)
                                     direction=0;
+
+                                if(direction==0)
+                                    x--;
+                                else
+                                    x++;
                             }
                             next_x = x;
                             next_y = prev_y;
@@ -79,16 +79,16 @@ int main() {
                             int y = prev_y;
 
                             for(int v=0; v<num; v++){
-                                if(direction==2)
-                                    y--;
-                                else
-                                    y++;
-
                                 if(y==n)
                                     direction=2;
                                 
                                 if(y==1)
                                     direction=3;
+                                
+                                if(direction==2)
+                                    y--;
+                                else
+                                    y++;
                             }
                             next_y = y;
                             next_x = prev_x;
@@ -110,7 +110,7 @@ int main() {
                 if(next_marbles[i][j].size()>0){
                     sort(next_marbles[i][j].begin(), next_marbles[i][j].end(), cmp);
                     int cnt = next_marbles[i][j].size();
-
+                    
                     if(cnt>k){
                         cnt = k;
                     }
