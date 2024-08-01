@@ -36,8 +36,13 @@ int main() {
         prev_marbles[x][y].push_back(make_pair(i, make_pair(direction,speed)));
     }
 
-    int ans = m;
     for(int l=0; l<t; l++){
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=n; j++){
+                next_marbles[i][j].clear();
+            }
+        }
+
         for(int i=1; i<=n; i++){
             for(int j=1; j<=n; j++){
                 if(prev_marbles[i][j].size()!=0){
@@ -52,6 +57,7 @@ int main() {
                         int next_y;
                         if(direction==0||direction==1){
                             int num = abs(speed*dx[direction]);
+                            
                             int x = prev_x;
 
                             for(int v=0; v<num; v++){
@@ -59,6 +65,7 @@ int main() {
                                     x--;
                                 else
                                     x++;
+
                                 if(x==1)
                                     direction=1;
                                 if(x==n)
@@ -105,7 +112,6 @@ int main() {
                     int cnt = next_marbles[i][j].size();
 
                     if(cnt>k){
-                        ans -= (cnt-k);
                         cnt = k;
                     }
 
@@ -117,6 +123,13 @@ int main() {
                     }
                 }
             }
+        }
+    }
+
+    int ans = 0;
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=n; j++){
+            ans+=prev_marbles[i][j].size();
         }
     }
 
