@@ -10,14 +10,23 @@ bool visited[11];
 
 void backtracking(int cnt){
     if(cnt==n-1){
+        bool sw = true;
+        if(arr[1][ans[0]]==0){
+            sw = false;
+        }
         int num = arr[1][ans[0]];
 
         for(int i=1; i<n-1; i++){
+            if(arr[ans[i-1]][ans[i]]==0){
+                sw = false;
+                break;
+            }
             num += arr[ans[i-1]][ans[i]];
         }
         num += arr[ans[n-2]][1];
 
-        answer = min(answer, num);
+        if(sw)
+            answer = min(answer, num);
     }
 
     for(int i=2; i<=n; i++){
