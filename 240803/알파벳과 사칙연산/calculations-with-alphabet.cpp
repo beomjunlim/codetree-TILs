@@ -1,47 +1,53 @@
 #include <iostream>
 #include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 string s;
-int arr[201];
+unordered_map<char,int> alphabet;
+char arr[6];
 int number[4] = {1,2,3,4};
 int num = 0;
-int ans = 0;
+int ans = -(int)1e9;
 
 void backtracking(int cnt){
     if(cnt==num){
-        int temp = arr[0];
-        int idx = 1;
-        int num_idx = 1;
+        int idx = 0;
+        int temp = alphabet[s[idx]];
+        idx++;
+
         while(idx<s.length()){
             if(s[idx]=='+'){
-                temp += arr[num_idx];
-                idx += 2;
+                temp += alphabet[s[idx+1]];
             }
             else if(s[idx]=='-'){
-                temp -= arr[num_idx];
+                temp -= alphabet[s[idx+1]];
             }
             else if(s[idx]=='*'){
-                temp *= arr[num_idx];
+                temp *= alphabet[s[idx+1]];
             }
-            num_idx++;
             idx += 2;
         }
         ans = max(ans, temp);
         return;
     }
 
-    for(int i=0; i<4; i++){
-        arr[cnt] = number[i];
+    for(int i=1; i<=4; i++){
+        alphabet[arr[cnt]] = i;
         backtracking(cnt+1);
     }
 }
+
 int main() {
     cin>>s;
 
+    unordered_set<char> sets;
     for(int i=0; i<s.length(); i++){
-        if(s[i]>='a'&&s[i]<='f')
+        if(s[i]>='a'&&s[i]<='f'&&sets.find(s[i])==sets.end()){
+            arr[num] = s[i];
             num++;
+        }
     }
 
     backtracking(0);
