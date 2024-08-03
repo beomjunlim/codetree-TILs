@@ -45,6 +45,7 @@ int main() {
     unordered_set<char> sets;
     for(int i=0; i<s.length(); i++){
         if(s[i]>='a'&&s[i]<='f'&&sets.find(s[i])==sets.end()){
+            sets.insert(s[i]);
             arr[num] = s[i];
             num++;
         }
