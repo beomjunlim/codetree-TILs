@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -15,27 +16,33 @@ bool InRange(int x, int y){
 int main() {
     cin>>n;
 
+    vector<pair<int, pair<int,int>>> v;
+
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             cin>>arr[i][j];
             dp[i][j] = 1;
+            v.push_back(make_pair(arr[i][j], make_pair(i,j)));
         }
     }
 
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            for(int k=0; k<4; k++){
-                int x = i + dx[k];
-                int y = j + dy[k];
+    sort(v.begin(), v.end());
 
-                if(InRange(x,y)&&arr[i][j]>arr[x][y])
-                    dp[i][j] = max(dp[i][j], dp[x][y] + 1);
-            }
+    for(int i=0; i<v.size(); i++){
+        int x = v[i].second.first;
+        int y = v[i].second.second;
+
+        for(int j=0; j<4; j++){
+            int nx = x + dx[j];
+            int ny = y + dy[j];
+
+            if(InRange(nx,ny)&&arr[nx][ny]>arr[x][y])
+                dp[nx][ny] = max(dp[nx][ny], dp[x][y] + 1);
         }
     }
 
     int ans = 0;
-    
+
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             ans = max(ans, dp[i][j]);
