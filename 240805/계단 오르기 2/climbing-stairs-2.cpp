@@ -5,7 +5,7 @@ using namespace std;
 
 int n;
 int coin[1001];
-int dp[4][1001];
+int dp[1001][4];
 
 int main() {
     cin>>n;
@@ -17,11 +17,12 @@ int main() {
         sum += coin[i];
     }
 
-    for(int i=0; i<4; i++){
-        for(int j=0; j<=n; j++){
+    for(int i=0; i<=n; i++){
+        for(int j=0; j<4; j++){
             dp[i][j] = INT_MIN;
         }
     }
+
     dp[0][0] = 0;
     dp[1][1] = coin[1];
 
