@@ -26,18 +26,14 @@ int main() {
     for(int i=2; i<=n; i++){
         for(int j=0; j<=40; j++){
             if(dp[i-1][j]!=0){
-                dp[i][j+arr[i]] += dp[i-1][j];
-                dp[i][j-arr[i]] += dp[i-1][j];
+                if(j+arr[i]<=40)
+                    dp[i][j+arr[i]] += dp[i-1][j];
+                if(j-arr[i]>=0)
+                    dp[i][j-arr[i]] += dp[i-1][j];
             }
         }
     }
 
-    // for(int i=1; i<=n; i++){
-    //     for(int j=17; j<=23; j++){
-    //         cout<<dp[i][j]<<" ";
-    //     }
-    //     cout<<'\n';
-    // }
     cout<<dp[n][20 + m];
 
     return 0;
