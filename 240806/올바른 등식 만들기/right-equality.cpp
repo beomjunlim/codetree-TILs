@@ -5,7 +5,7 @@ using namespace std;
 
 int n,m;
 int arr[101];
-int dp[101][41];
+long long dp[101][41];
 
 int main() {
     cin>>n>>m;
