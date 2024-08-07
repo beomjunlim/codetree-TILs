@@ -23,14 +23,14 @@ int main() {
         for(int j=0; j<=9; j++){
             if(dp[i-1][j]!=0){
                 if(j==9){
-                    dp[i][j-1] += (dp[i-1][j]) % MOD;
+                    dp[i][j-1] = (dp[i][j-1] + dp[i-1][j]) % MOD;
                 }
                 else if(j==0){
-                    dp[i][j+1] += (dp[i-1][j]) % MOD;
+                    dp[i][j+1] = (dp[i][j+1] + dp[i-1][j]) % MOD;
                 }
                 else{
-                    dp[i][j-1] += (dp[i-1][j]) % MOD;
-                    dp[i][j+1] += (dp[i-1][j]) % MOD;
+                    dp[i][j-1] = (dp[i][j-1] + dp[i-1][j]) % MOD;
+                    dp[i][j+1] = (dp[i][j+1] + dp[i-1][j]) % MOD;
                 }
             }
         }
