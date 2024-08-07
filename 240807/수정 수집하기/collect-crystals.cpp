@@ -24,15 +24,27 @@ int main() {
 
     for(int i=2; i<=n; i++){
         for(int j=0; j<=k; j++){
-            for(int l=0; l<2; l++){
-                if(arr[i]=='L'){
+            if(arr[i]=='L'){
+                if(j==0){
+                    dp[i][j][0] = dp[i-1][j][0] + 1;
+                    dp[i][j][1] = dp[i-1][j][1];
+                }
+                else{
                     dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j-1][1]) + 1;
                     dp[i][j][1] = max(dp[i-1][j-1][0], dp[i-1][j][1]);
                 }
-                if(arr[i]=='R'){
+                
+            }
+            if(arr[i]=='R'){
+                if(j==0){
+                    dp[i][j][0] = dp[i-1][j][0];
+                    dp[i][j][1] = dp[i-1][j][1] + 1;
+                }
+                else{
                     dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j-1][1]);
                     dp[i][j][1] = max(dp[i-1][j-1][0], dp[i-1][j][1]) + 1;
                 }
+                
             }
         }
     }
