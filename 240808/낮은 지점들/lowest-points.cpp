@@ -6,9 +6,9 @@ int main() {
     int n;
     cin>>n;
 
-    unordered_map<int,int> num;
+    unordered_map<long long, long long> num;
     for(int i=0; i<n; i++){
-        int x,y;
+        long long x,y;
         cin>>x>>y;
 
         if(num.find(x)==num.end())
@@ -17,7 +17,7 @@ int main() {
             num[x] = y;
     }
 
-    int ans = 0;
+    long long ans = 0;
 
     for(auto it : num)
         ans += it.second;
