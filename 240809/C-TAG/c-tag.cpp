@@ -30,6 +30,8 @@ void backtracking(int cnt, int num){
             }
             all.insert(temp);
             b.insert(temp);
+            if(a.find(temp)!=a.end())
+                return;
         }
 
         if(a.size() + b.size() == all.size())
