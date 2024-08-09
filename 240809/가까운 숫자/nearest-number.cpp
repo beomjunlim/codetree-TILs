@@ -20,7 +20,7 @@ int main() {
 
         auto it = s.upper_bound(num);
         if(it==s.end()){
-            int A = *s.begin();
+            int A = *s.rbegin();
             ans = min(ans, abs(num-A));
         }
         else{
