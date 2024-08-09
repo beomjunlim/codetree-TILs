@@ -24,7 +24,7 @@ int main() {
         double sum = dp[n] - dp[i];
         int num = pq.top().first;
         int idx = pq.top().second;
-        while(idx<i){
+        while(idx<=i){
             pq.pop();
             num = pq.top().first;
             idx = pq.top().second;
