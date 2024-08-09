@@ -5,44 +5,21 @@ using namespace std;
 int n,m;
 string A[501];
 string B[501];
-int ans[3];
-int count = 0;
+int ans = 0;
+unordered_set<string> s;
 
-void backtracking(int cnt, int num){
-    if(cnt==3){
-        unordered_set<string> all;
+bool check(int x, int y, int z){
+    unordered_set<string> s;
 
-        unordered_set<string> a;
-        for(int i=0; i<n; i++){
-            string temp = "";
-            for(int j=0; j<3; j++){
-                temp += A[i][ans[j]];
-            }
-            all.insert(temp);
-            a.insert(temp);
-        }
-
-        unordered_set<string> b;
-        for(int i=0; i<n; i++){
-            string temp = "";
-            for(int j=0; j<3; j++){
-                temp += B[i][ans[j]];
-            }
-            all.insert(temp);
-            b.insert(temp);
-            if(a.find(temp)!=a.end())
-                return;
-        }
-
-        if(a.size() + b.size() == all.size())
-            count++;
-        return;
+    for(int i=0; i<n; i++){
+        s.insert(A[i].substr(x,1) + A[i].substr(y,1) + A[i].substr(z,1));
     }
 
-    for(int i=num; i<m; i++){
-        ans[cnt] = i;
-        backtracking(cnt+1, i+1);
+    for(int i=0; i<n; i++){
+        if(s.find(B[i].substr(x,1) + B[i].substr(y,1) + B[i].substr(z,1))!=s.end())
+            return false;
     }
+    return true;
 }
 
 int main() {
@@ -54,8 +31,15 @@ int main() {
     for(int i=0; i<n; i++)
         cin>>B[i];
     
-    backtracking(0,0);
-    cout<<count;
+    for(int i=0; i<m; i++){
+        for(int j=i+1; j<m; j++){
+            for(int k=j+1; k<m; k++){
+                if(check(i,j,k))
+                    ans++;
+            }
+        }
+    }
 
+    cout<<ans;
     return 0;
 }
