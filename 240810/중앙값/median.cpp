@@ -30,33 +30,45 @@ int main() {
             }
             else if(i%2==1){
                 if(num>mid){
-                    int A = -big.top();
-                    if(A>num){
-                        small.push(mid);
-                        mid = num;
+                    if(big.empty()){
+                        big.push(-num);
                         cout<<mid<<" ";
                     }
                     else{
-                        small.push(mid);
-                        big.pop();
-                        big.push(-num);
-                        mid = A;
-                        cout<<mid<<" ";
+                        int A = -big.top();
+                        if(A>num){
+                            small.push(mid);
+                            mid = num;
+                            cout<<mid<<" ";
+                        }
+                        else{
+                            small.push(mid);
+                            big.pop();
+                            big.push(-num);
+                            mid = A;
+                            cout<<mid<<" ";
+                        }
                     }
                 }
                 else{
-                    int A = small.top();
-                    if(A>num){
-                        small.pop();
+                    if(small.empty()){
                         small.push(num);
-                        big.push(-mid);
-                        mid = A;
                         cout<<mid<<" ";
                     }
                     else{
-                        big.push(-mid);
-                        mid = num;
-                        cout<<mid<<" ";
+                        int A = small.top();
+                        if(A>num){
+                            small.pop();
+                            small.push(num);
+                            big.push(-mid);
+                            mid = A;
+                            cout<<mid<<" ";
+                        }
+                        else{
+                            big.push(-mid);
+                            mid = num;
+                            cout<<mid<<" ";
+                        }
                     }
                 }
             }
