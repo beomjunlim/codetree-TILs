@@ -3,7 +3,7 @@
 using namespace std;
 
 int arr[100001];
-int dp[100001][4];
+int L[100001], R[100001];
 
 int main() {
     int n;
@@ -13,24 +13,22 @@ int main() {
         cin >> arr[i];
     }
 
-    for (int i = 0; i <= n; i++) {
-        dp[i][0] = 
-        dp[i][1] = dp[i][2] = dp[i][3] = -1e9;
+    L[1] = arr[1];
+    for(int i=2; i<=n; i++){
+        L[i] = max(L[i-1], arr[i]);
     }
 
-    for (int i = 1; i <= n; i++) {
-        dp[i][0] = 0; 
-        dp[i][1] = max(dp[i-1][1], arr[i]);
+    R[n] = arr[n];
 
-        if (i >= 2) {
-            dp[i][2] = max(dp[i-1][2], dp[i-2][1] + arr[i]);
-        }
-        if (i >= 3) {
-            dp[i][3] = max(dp[i-1][3], dp[i-2][2] + arr[i]);
-        }
+    for(int i=n-1; i>0; i--){
+        R[i] = max(R[i+1], arr[i]);
     }
 
-    cout << dp[n][3] << endl;
+    int ans = 0;
+    for(int i=3; i<=n-2; i++){
+        ans = max(ans, L[i-2] + arr[i] + R[i+2]);
+    }
 
+    cout<<ans;
     return 0;
 }
