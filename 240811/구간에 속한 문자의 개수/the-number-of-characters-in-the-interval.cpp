@@ -29,7 +29,7 @@ int main() {
     sum[1][1][2] = c;
     
     for(int i=1; i<=n; i++){
-        for(int j=1; j<=n; j++){
+        for(int j=1; j<=m; j++){
             int a = 0, b = 0, c = 0;
             if(arr[i][j]=='a')
                 a = 1;
