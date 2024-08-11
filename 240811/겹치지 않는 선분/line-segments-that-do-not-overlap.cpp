@@ -1,47 +1,32 @@
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <iostream>
+#include <queue>
 using namespace std;
 
 int n;
-bool visited[100001];
-vector<pair<int,int>> arr;
+vector<pair<int, int>> arr;
+vector<int> L, R;
 
-bool cmp(pair<int,int>a, pair<int,int>b){
-    return a.first < b.first;
+void input() {
+    cin >> n;
+    arr = vector<pair<int, int>>(n);
+    L = R = vector<int>(n, 0);
+    for (auto &&i : arr)
+        cin >> i.first >> i.second;
+    sort(arr.begin(), arr.end());
+
+    L[0] = arr[0].second, R[n - 1] = arr[n - 1].second;
+    for (int i = 1; i < n; i++) {
+        L[i] = max(L[i - 1], arr[i].second);
+        R[n - 1 - i] = min(R[n - i], arr[n - 1 - i].second);
+    }
 }
 
 int main() {
-    cin>>n;
-
-    for(int i=0; i<n; i++){
-        int x,y;
-        cin>>x>>y;
-        arr.push_back(make_pair(x,y));
-    }
-
-    sort(arr.begin(), arr.end(), cmp);
-
+    input();
     int ans = 0;
-    int start = arr[0].second;
-    int idx = 0;
-
-    for(int i=1; i<n; i++){
-        if(start>arr[i].second){
-            visited[i] = true;
-            visited[idx] = true;
-        }
-        else{
-            start = arr[i].second;
-            idx = i;
-        }
-    }
-
-    for(int i=0; i<n; i++){
-        if(!visited[i])
-            ans++;
-    }
-    
-    cout<<ans;
+    for (int i = 0; i < n; i++)
+        ans += L[i] == R[i];
+    cout << ans;
     return 0;
 }
