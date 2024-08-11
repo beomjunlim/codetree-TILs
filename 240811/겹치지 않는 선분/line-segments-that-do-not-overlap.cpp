@@ -4,6 +4,7 @@
 using namespace std;
 
 int n;
+bool visited[100001];
 vector<pair<int,int>> arr;
 
 bool cmp(pair<int,int>a, pair<int,int>b){
@@ -21,18 +22,26 @@ int main() {
 
     sort(arr.begin(), arr.end(), cmp);
 
-    int ans = n;
+    int ans = 0;
     int start = arr[0].second;
-    
+    int idx = 0;
+
     for(int i=1; i<n; i++){
         if(start>arr[i].second){
-            ans-=2;
+            visited[i] = true;
+            visited[idx] = true;
         }
         else{
             start = arr[i].second;
+            idx = i;
         }
     }
 
+    for(int i=0; i<n; i++){
+        if(!visited[i])
+            ans++;
+    }
+    
     cout<<ans;
     return 0;
 }
