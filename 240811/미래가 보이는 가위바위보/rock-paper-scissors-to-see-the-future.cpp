@@ -42,7 +42,7 @@ int main() {
     }
 
     int ans = max(H[n], max(S[n], P[n]));
-    for(int i=1; i<n; i++){
+    for(int i=2; i<n; i++){
         int a = 0, b = 0, c = 0;
         if(arr[i]==0)
             c = 1;
