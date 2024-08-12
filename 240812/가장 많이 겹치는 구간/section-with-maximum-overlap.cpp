@@ -2,7 +2,7 @@
 #include <set>
 using namespace std;
 
-int arr[100001];
+int arr[200001];
 
 int main() {
     int n;
@@ -12,8 +12,8 @@ int main() {
     for(int i=0; i<n; i++){
         int x,y;
         cin>>x>>y;
-        arr[x] = 1;
-        arr[y] = -1;
+        arr[x]++;
+        arr[y]--;
         num.insert(x);
         num.insert(y);
     }
