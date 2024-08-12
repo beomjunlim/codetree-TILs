@@ -11,8 +11,8 @@ int main() {
     for(int i=0; i<n; i++){
         int x,y;
         cin>>x>>y;
-        v.push_back(make_pair(x,1));
-        v.push_back(make_pair(y,-1));
+        v.push_back(make_pair(x,-1));
+        v.push_back(make_pair(y,1));
     }
 
     sort(v.begin(), v.end());
@@ -20,7 +20,7 @@ int main() {
     int cnt = 0;
     int ans = 0;
     for(int i=0; i<2*n; i++){
-        if(v[i].second==1){
+        if(v[i].second==-1){
             cnt++;
             ans = max(ans, cnt);
         }
