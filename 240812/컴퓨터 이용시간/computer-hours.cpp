@@ -36,7 +36,7 @@ int main() {
             seat.erase(num);
         }
         else{
-            seat.insert(ans[people[time[v[i].second]]]);
+            seat.insert(ans[people[time[v[i].first]]]);
         }
     }
 
