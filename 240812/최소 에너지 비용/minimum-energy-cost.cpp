@@ -2,9 +2,9 @@
 #include <algorithm>
 using namespace std;
 
-int arr[100001];
-int cost[100001];
-int min_arr[100001];
+long long arr[100001];
+long long cost[100001];
+long long min_arr[100001];
 
 int main() {
     int n;
@@ -27,7 +27,7 @@ int main() {
     }
 
     long long ans = 0;
-    
+
     for(int i=1; i<n; i++){
         ans += cost[i]*min_arr[i-1];
     }
