@@ -21,10 +21,9 @@ int main() {
         if(i<j){
             ans = min(ans, abs(arr[i] + arr[j]));
         }
-        while(i<j&&arr[i] + arr[j]>0){
+        while(i<j-1&&arr[i] + arr[j]>0){
             j--;
             ans = min(ans, abs(arr[i] + arr[j]));
-
         }
     }
 
