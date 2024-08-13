@@ -21,7 +21,10 @@ int main() {
 
         if(sum<=k){
             ans++;
-            end++;
+            if(end==n-1)
+                start++;
+            else
+                end++;
         }
         else if(sum>k){
             start++;
