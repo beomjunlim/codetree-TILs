@@ -13,13 +13,14 @@ int main() {
         cin>>arr[i];
     }    
 
-    sort(arr, arr+n);
+    sort(arr+1, arr+n+1);
 
     int ans = 1e9;
     int j=n;
     for(int i=1; i<=n; i++){
-        if(i<j)
+        if(i<j){
             ans = min(ans, abs(arr[i] + arr[j]));
+        }
         while(i<j&&arr[i] + arr[j]>0){
             ans = min(ans, abs(arr[i] + arr[j]));
             j--;
