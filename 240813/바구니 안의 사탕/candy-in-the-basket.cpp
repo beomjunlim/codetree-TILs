@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace std;
 
-int arr[1000001];
+int arr[5000001];
 long long sum[5000001];
 
 int main() {
