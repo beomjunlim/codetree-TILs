@@ -7,28 +7,27 @@ int Count[100001];
 
 int main() {
     int n;
-    cin>>n;
+    cin >> n;
 
-    for(int i=1; i<=n; i++){
-        cin>>arr[i];
+    for(int i = 1; i <= n; i++){
+        cin >> arr[i];
     }
 
     int ans = 0;
     int j = 1;
-    for(int i=1; i<n; i++){
-        while(j<=n){
-            if(Count[arr[j]]==1){
-                ans = max(ans, j-i);
-                Count[arr[j]]--;
-                break;
-            }
-            Count[arr[j]] = 1;
+
+    for(int i = 1; i <= n; i++) {
+        while(j <= n && Count[arr[j]] == 0) {
+            Count[arr[j]]++;
             j++;
-            if(j==n+1)
-                ans = max(ans, j - i);
         }
+        
+
+        ans = max(ans, j - i);
+
+        Count[arr[i]]--;
     }
     
-    cout<<ans;
+    cout << ans;
     return 0;
 }
