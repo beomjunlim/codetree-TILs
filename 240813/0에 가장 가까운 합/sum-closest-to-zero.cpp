@@ -15,7 +15,7 @@ int main() {
 
     sort(arr+1, arr+n+1);
 
-    int ans = 1e9;
+    int ans = 9*1e9;
     int j=n;
     for(int i=1; i<=n; i++){
         if(i<j){
