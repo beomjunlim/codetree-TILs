@@ -12,19 +12,24 @@ int main() {
         cin>>arr[i];
     }
 
-    int ans = n;
+    int ans = n+1;
+    int sum = 0;
+    int j = 0;
 
-    for(int i=0; i<n-1; i++){
-        int sum = 0;
-        for(int j=i; j<n; j++){
+    for(int i=0; i<n; i++){
+        while(j<n&&sum<s){
             sum += arr[j];
-            if(sum>=s){
-                ans = min(ans, j-i+1);
-                break;
-            }
+            j++;
         }
+
+        if(sum>=s)
+            ans = min(ans, j - i);
+        sum -= arr[i];
     }
 
+    if(ans==n+1)
+        ans = -1;
+    
     cout<<ans;
     return 0;
 }
