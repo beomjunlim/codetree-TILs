@@ -26,17 +26,6 @@ int main() {
         }
     }
 
-
-    int j = 0;
-    int i = n-1;
-
-    while(j<i){
-        while(arr[i] + arr[j]<=k){
-            j++;
-        }
-        ans += j;
-        i--;
-    }
     cout << ans;
     return 0;
 }
