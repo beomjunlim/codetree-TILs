@@ -3,7 +3,7 @@
 using namespace std;
 
 int arr[1000001];
-long long sum[1000001];
+long long sum[5000001];
 
 int main() {
     int n,k;
