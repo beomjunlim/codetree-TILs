@@ -8,11 +8,10 @@ int main() {
     cin>>str;
 
     int n = str.length();
-    int ans = 1;
+    int ans = 0;
     set<char> arr;
-    int j=1;
+    int j=0;
     for(int i=0; i<n; i++){
-        arr.insert(str[i]);
         while(j<n&&arr.find(str[j])==arr.end()){
             arr.insert(str[j]);
             j++;
