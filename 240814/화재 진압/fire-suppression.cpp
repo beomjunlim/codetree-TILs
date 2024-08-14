@@ -16,7 +16,7 @@ int main() {
         num.push_back(make_pair(a,1));
     }
 
-    for(int j=1; j<=n; j++){
+    for(int j=1; j<=m; j++){
         int b;
         cin>>b;
         num.push_back(make_pair(b,-1));
@@ -46,8 +46,12 @@ int main() {
             sw = true;
         }
         else if(num[i].second==1){
-            if(sw)
-                fire[num[i].first] = min(fire[num[i].first], A - num[i].first);
+            if(sw){
+                if(fire.find(num[i].first)!=fire.end())
+                    fire[num[i].first] = min(fire[num[i].first], A - num[i].first);
+                else
+                    fire[num[i].first] = A - num[i].first;
+            }
         }
     }
 
