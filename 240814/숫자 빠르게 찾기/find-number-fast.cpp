@@ -19,22 +19,26 @@ int main() {
     for(int i=0; i<m; i++){
         int num;
         cin>>num;
-        // int ans = -1;
-        // int start = 0;
-        // int end = n-1;
+        int ans = -1;
+        int start = 0;
+        int end = n-1;
 
-        // while(start<end){
-        //     int mid = (start + end) / 2;
+        while(start<=end){
+            int mid = (start + end) / 2;
 
-        //     if(arr[mid]==num){
-        //         ans = number[num];
-        //         break;
-        //     }
-        // }
-        if(number[num]==0)
-            cout<<-1<<'\n';
-        else
-            cout<<number[num]<<'\n';
+            if(arr[mid]==num){
+                ans = mid+1;
+                break;
+            }
+
+            if(arr[mid]<num)
+                start = mid + 1;
+            else
+                end = mid - 1;
+        }
+
+        cout<<ans<<'\n';
     }
+
     return 0;
 }
