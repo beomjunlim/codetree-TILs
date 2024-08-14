@@ -14,15 +14,13 @@ int main() {
     }
 
     map<int,int> num;
+
     
     int ans = 0;
     int j=1;
     for(int i=1; i<=n; i++){
-        while(j<=n){
+        while(j<=n&&num[arr[j]]<k){
             num[arr[j]]++;
-            if(num[arr[j]]>k)
-                break;
-
             j++;
         }
 
