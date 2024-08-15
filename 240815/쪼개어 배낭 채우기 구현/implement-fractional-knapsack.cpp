@@ -17,10 +17,10 @@ int main() {
 
     sort(arr.begin(), arr.end());
 
-    int bag = m;
+    double bag = m;
     int idx = n-1;
     double value = 0;
-    while(bag>0){
+    while(bag>0&&idx>=0){
         if(bag>=arr[idx].second){
             value += arr[idx].first*arr[idx].second;
             bag -= arr[idx].second;
