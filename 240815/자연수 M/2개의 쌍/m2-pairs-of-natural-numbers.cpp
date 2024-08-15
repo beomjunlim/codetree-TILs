@@ -18,7 +18,7 @@ int main() {
 
     int left = 0;
     int right = n-1;
-    int ans;
+    int ans = 0;
 
     while(left<=right){
         int A = v[left].first;
