@@ -18,7 +18,7 @@ int main() {
 
     int left = 0;
     int right = n-1;
-    int ans = 1e9;
+    int ans;
 
     while(left<=right){
         int A = v[left].first;
@@ -27,7 +27,7 @@ int main() {
         int B = v[right].first;
         int B_num = v[right].second;
 
-        ans = min(ans, A+B);
+        ans = max(ans, A+B);
 
         if(A_num<B_num){
             v[right].second = B_num - A_num;
