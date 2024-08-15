@@ -2,7 +2,7 @@
 #include <set>
 using namespace std;
 
-int visited[50001];
+int visited[100001];
 int B[50001];
 
 int main() {
