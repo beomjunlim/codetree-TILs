@@ -14,14 +14,16 @@ int main() {
     int cnt = 0;
     if(arr[0]==0){
         cnt++;
+        arr[0] = 1;
         arr[1] = 1 - arr[1];
     }
 
     for(int i=2; i<n; i++){
         if(arr[i-1]==0){
             cnt++;
+            arr[i-1] = 1;
             arr[i] = 1 - arr[i];
-            arr[i+1] = 1 - arr[i];
+            arr[i+1] = 1 - arr[i+1];
         }
     }
 
