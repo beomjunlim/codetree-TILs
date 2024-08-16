@@ -22,21 +22,11 @@ int main() {
         int a,b,c;
         cin>>a>>b>>c;
         v[a].push_back(make_pair(c,b));
-        v[b].push_back(make_pair(b,a));
-
-        if(a==k)
-            dist[b] = c;
-        if(b==k)
-            dist[a] = c;
+        v[b].push_back(make_pair(c,a));
     }
 
     priority_queue<pair<int,int>> pq;
-    
-    for(int i=1; i<=n; i++){
-        if(dist[i]!=INT_MAX&&i!=k){
-            pq.push(make_pair(-dist[i], i));
-        }
-    }
+    pq.push(make_pair(0,k));
 
     while(!pq.empty()){
         int dis = -pq.top().first;
