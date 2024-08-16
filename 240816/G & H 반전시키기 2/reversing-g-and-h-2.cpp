@@ -30,12 +30,10 @@ int main() {
 
     int cnt = 0;
     for(int i=n-1; i>=0; i--){
-        if(A[i]!=B[i]){
+        if(A[i]!=B[i]&&cnt%2==0)
             cnt++;
-            for(int j=i; j>=0; j--){
-                A[j] ^= 1;
-            }
-        }
+        if(A[i]==B[i]&&cnt%2==1)
+            cnt++;
     }
 
     cout<<cnt;
