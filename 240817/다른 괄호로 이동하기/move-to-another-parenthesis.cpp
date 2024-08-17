@@ -8,8 +8,8 @@ using namespace std;
 int n,A,B;
 char arr[31][31];
 int node_num[31][31];
-vector<pair<int,int>> graph[31];
-int dist[901];
+vector<pair<int,int>> graph[1001];
+int dist[1001];
 int dx[] = {0,0,-1,1};
 int dy[] = {-1,1,0,0};
 
@@ -32,7 +32,7 @@ void dijkstra(int start){
         int idx = pq.top().second;
         pq.pop();
 
-        if(dist[idx] > min_dist)
+        if(dist[idx] < min_dist)
             continue;
 
         for(int i=0; i<graph[idx].size(); i++){
