@@ -43,7 +43,7 @@ int bfs(){
                     int x = i + dx[k];
                     int y = j + dy[k];
 
-                    if(InRange(x,y)&&arr[x][y]==0){
+                    if(InRange(x,y)&&arr[x][y]==0&&visited[x][y]){
                         visited[i][j] = true;
                         ice++;
                         break;
