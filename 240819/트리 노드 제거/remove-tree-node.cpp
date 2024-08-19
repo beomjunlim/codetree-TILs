@@ -15,8 +15,7 @@ void dfs(int x){
     if(visited[x])
         return;
     
-    if(v[x].size()==0)
-        ans++;
+    bool leaf = true;
 
     for(int i=0; i<v[x].size(); i++){
         int y = v[x][i];
@@ -26,7 +25,11 @@ void dfs(int x){
         if(visited[y])
             continue;
         dfs(y);
+        leaf = false;
     }
+
+    if(leaf)
+        ans++;
 }
 
 int main() {
@@ -45,7 +48,7 @@ int main() {
 
     cin>>del;
     visited[del] = true;
-    
+
     dfs(root);
     cout<<ans;
 
