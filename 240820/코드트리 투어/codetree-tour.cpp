@@ -9,8 +9,26 @@ using namespace std;
 int n,m;
 vector<pair<int,int>> city[2001];
 map<int, pair<int,int>> product;
+priority_queue<pair<int,int>> sold;
+bool deleted[30001];
 int dist[2001];
 int start;
+
+void ProductPrice(){
+    sold = priority_queue<pair<int,int>> ();
+
+    for(auto it : product){
+        int id = it.first;
+        int revenue = it.second.first;
+        int dest = it.second.second;
+
+        int cost = revenue - dist[dest];
+
+        if(cost>=0&&!deleted[id]){
+            sold.push(make_pair(cost,-id));
+        }
+    }
+}
 
 void dijkstra(){
     for(int i=0; i<n; i++){
@@ -66,36 +84,44 @@ int main() {
             int id,revenue,dest;
             cin>>id>>revenue>>dest;
             product[id] = make_pair(revenue, dest);
+
+            int cost = revenue - dist[dest];
+
+            if(cost>=0)
+                sold.push(make_pair(cost,-id));              
         }
         else if(num==300){
             int id;
             cin>>id;
             product.erase(id);
+            deleted[id] = true;
         }
         else if(num==400){
-            int max_id = -1;
-            int max_cost = -1;
-            for(auto it : product){
-                int id = it.first;
-                int revenue = it.second.first;
-                int dest = it.second.second;
+            int id = -1;
+            while(!sold.empty()){
+                id = -sold.top().second;
 
-                int cost = revenue - dist[dest];
-
-                if(cost>=0&&max_cost<cost){
-                    max_cost = cost;
-                    max_id = id;
+                if(deleted[id]){
+                    id = -1;
+                    sold.pop();
                 }
+                else
+                    break;
             }
 
-            cout<<max_id<<'\n';
-            product.erase(max_id);
+            cout<<id<<'\n';
+            if(id!=-1){
+                product.erase(id);
+                sold.pop();
+                deleted[id] = true;
+            }
         }
         else if(num==500){
             int s;
             cin>>s;
             start = s;
             dijkstra();
+            ProductPrice();
         }
         q--;
     }
