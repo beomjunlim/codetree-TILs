@@ -93,8 +93,10 @@ int main() {
         else if(num==300){
             int id;
             cin>>id;
-            product.erase(id);
-            deleted[id] = true;
+            if(product.find(id)!=product.end()){
+                product.erase(id);
+                deleted[id] = true;
+            }
         }
         else if(num==400){
             int id = -1;
