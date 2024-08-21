@@ -108,6 +108,8 @@ int main() {
     int ans = 0;
     cin>>R>>C>>K;
     R = R + 3;
+    clearMap();
+
     for(int i=1; i<=K; i++){
         int c,d;
         cin>>c>>d;
@@ -133,7 +135,7 @@ int main() {
                 break;
         }
 
-        if(x<=4){
+        if(x<=5){
             clearMap();
         }
         else{
@@ -150,6 +152,7 @@ int main() {
                 }
                 arr[nx][ny] = i*2;
             }
+//            cout<<bfs(cx + dx[d], cy + dy[d])<<'\n';
             ans += bfs(cx + dx[d], cy + dy[d]);
         }   
     }
