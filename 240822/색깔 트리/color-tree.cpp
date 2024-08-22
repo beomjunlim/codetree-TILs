@@ -4,6 +4,7 @@
 #include <cstring>
 #include <map>
 #include <set>
+#include <queue>
 using namespace std;
 
 map<int, pair<int,pair<int,int>>> node;
@@ -11,38 +12,10 @@ map<int,set<int>>Parent;
 set<int> root;
 int score = 0;
 bool COLOR[6];
-bool visited_node[100001];
+set<int> used_node;
+map<int,int> Color;
 
-void dfs(int x) {
-    if (visited_node[x]) return; // 이미 방문한 노드일 경우 넘긴다.
 
-    visited_node[x] = true; // 해당 노드 방문 처리
-
-    bool localColor[6] = {false}; 
-    localColor[node[x].second.first] = true; // 해당 노드 색 true
-
-    for (auto it : Parent[x]) {
-        dfs(it); // 자식 노드 dfs 호출
-        for (int i = 1; i <=5; i++) {
-            if (COLOR[i]) { // 자식 노드에서 방문한 것 처리
-                localColor[i] = true;
-            }
-        }
-    }
-
-    for (int i = 1; i <=5; i++) {
-        COLOR[i] = localColor[i]; // 전역 배열 업데이트
-    }
-
-    int cnt = 0;
-    for (int i = 1; i <=5; i++) {
-        if (COLOR[i]) {
-            cnt++;
-        }
-    }
-
-    score += cnt * cnt;
-}
 
 int main() {
     int q;
@@ -55,9 +28,12 @@ int main() {
         if(n==100){
             int id,Pid,color,depth;
             cin>>id>>Pid>>color>>depth;
+            
             if(Pid==-1){
                 node[id] = make_pair(Pid, make_pair(color, depth));
                 root.insert(id);
+                Color[id] = color;
+                used_node.insert(id);
             }
             else{
                 int P_depth = node[Pid].second.second;
@@ -65,6 +41,8 @@ int main() {
                 if(depth==0)
                     continue;
                 node[id] = make_pair(Pid, make_pair(color, depth));
+                Color[id] = color;
+                used_node.insert(id);
                 int parent = Pid;
                 while(parent!=-1){
                     Parent[parent].insert(id); // 해당 부모가 가지고 있는 자식들
@@ -80,11 +58,13 @@ int main() {
             int depth = node[id].second.second;
 
             node[id] = make_pair(Pid, make_pair(color, depth));
+            Color[id] = color;
 
             for(auto it : Parent[id]){
                 int Pid = node[it].first;
                 int depth = node[it].second.second;
                 node[it] = make_pair(Pid, make_pair(color, depth));
+                Color[it] = color;
             }
         }
         else if(n==300){
@@ -94,13 +74,26 @@ int main() {
         }
         else if(n==400){
             score = 0;
-            for(auto it : root){
-                memset(visited_node, false, sizeof(visited_node));
-                memset(COLOR, false, sizeof(COLOR));
-                dfs(it);
+            set<int> leaf;
+            for(auto it : used_node){
+                leaf.insert(it);
             }
+
+            for(auto it : Parent){
+                int id = it.first;
+                set<int> cnt;
+                leaf.erase(id);
+                cnt.insert(Color[id]);
+                for(auto idx : Parent[id]){
+                    cnt.insert(Color[idx]);
+                }
+                int num =cnt.size();
+                score += num*num;
+            }
+            score += leaf.size();
             cout<<score<<'\n';
         }
+
 
     }
     return 0;
