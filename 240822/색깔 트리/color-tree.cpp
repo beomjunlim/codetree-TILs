@@ -9,13 +9,9 @@ using namespace std;
 
 map<int, pair<int,pair<int,int>>> node;
 map<int,set<int>>Parent;
-set<int> root;
 int score = 0;
-bool COLOR[6];
 set<int> used_node;
 map<int,int> Color;
-
-
 
 int main() {
     int q;
@@ -31,7 +27,6 @@ int main() {
             
             if(Pid==-1){
                 node[id] = make_pair(Pid, make_pair(color, depth));
-                root.insert(id);
                 Color[id] = color;
                 used_node.insert(id);
             }
@@ -40,9 +35,11 @@ int main() {
                 depth = min(P_depth - 1, depth);
                 if(depth==0)
                     continue;
+
                 node[id] = make_pair(Pid, make_pair(color, depth));
                 Color[id] = color;
                 used_node.insert(id);
+
                 int parent = Pid;
                 while(parent!=-1){
                     Parent[parent].insert(id); // 해당 부모가 가지고 있는 자식들
@@ -73,24 +70,39 @@ int main() {
             cout<<node[id].second.first<<'\n';
         }
         else if(n==400){
+            // score = 0;
+            // set<int> leaf(used_node);
+            // for(auto it : used_node){
+            //     leaf.insert(it);
+            // }
+
+            // for(auto it : Parent){
+            //     int id = it.first;
+            //     set<int> cnt;
+            //     leaf.erase(id);
+            //     cnt.insert(Color[id]);
+            //     for(auto idx : Parent[id]){
+            //         cnt.insert(Color[idx]);
+            //     }
+            //     int num =cnt.size();
+            //     score += num*num;
+            // }
+            // score += leaf.size();
+            // cout<<score<<'\n';
             score = 0;
-            set<int> leaf;
-            for(auto it : used_node){
-                leaf.insert(it);
-            }
+            set<int> leaf(used_node);
 
             for(auto it : Parent){
-                int id = it.first;
+                leaf.erase(it.first);
                 set<int> cnt;
-                leaf.erase(id);
-                cnt.insert(Color[id]);
-                for(auto idx : Parent[id]){
+                cnt.insert(Color[it.first]);
+                for(auto idx : Parent[it.first]){
                     cnt.insert(Color[idx]);
                 }
-                int num =cnt.size();
+                int num = cnt.size();
                 score += num*num;
             }
-            score += leaf.size();
+            score +=leaf.size();
             cout<<score<<'\n';
         }
 
