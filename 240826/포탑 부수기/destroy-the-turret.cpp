@@ -59,8 +59,8 @@ int main() {
         attack_power += (n+m);
         arr[attack_x][attack_y] = attack_power;
 
-    //    cout<<"attack "<<attack_x<<" "<<attack_y<<" ";
-    //    cout<<"defence "<<defence_x<<" "<<defence_y<<'\n';
+        // cout<<"attack "<<attack_x<<" "<<attack_y<<" ";
+        // cout<<"defence "<<defence_x<<" "<<defence_y<<'\n';
         
         memset(visited, 0, sizeof(visited));
         bool sw = false;
@@ -131,11 +131,14 @@ int main() {
 
 
         if(sw){ // 레이저 공격
-          //  cout<<"레이저"<<'\n';
+            //cout<<"레이저"<<'\n';
             int half_power = attack_power / 2;
             for(int i=0; i<path.size(); i++){
                 int x = path[i].first;
                 int y = path[i].second;
+          //      cout<<x<<" "<<y<<'\n';
+                if(x==attack_x&&y==attack_y)
+                    continue;
 
                 if(x==defence_x&&y==defence_y)
                     arr[x][y] = max(0, arr[x][y] - attack_power);
@@ -145,7 +148,7 @@ int main() {
             }
         }
         else{ // 포탄 공격
-         //   cout<<"포탄"<<'\n';
+           // cout<<"포탄"<<'\n';
             int half_power = attack_power / 2;
             int x = defence_x;
             int y = defence_y;
@@ -156,7 +159,8 @@ int main() {
             for(int i=0; i<8; i++){
                 int nx = x + dx[i];
                 int ny = y + dy[i];
-
+                
+            //    cout<<nx<<" "<<ny<<'\n';
                 if(nx==attack_x&&ny==attack_y)
                     continue;
 
@@ -195,6 +199,10 @@ int main() {
                     else if(ny==0&&nx<=n&&nx>0){
                         ny = m;
                     }
+
+                    if(nx==attack_x&&ny==attack_y)
+                        continue;
+
                     if(arr[nx][ny]!=0){
                         arr[nx][ny] = max(0, arr[nx][ny] - half_power);
                         node.erase(make_pair(nx,ny));
@@ -213,18 +221,17 @@ int main() {
         node.clear();
 
         attack[attack_x][attack_y] = sequence;
-    //    cout<<"========================"<<'\n';
+      //  cout<<"========================"<<'\n';
         for(int i=1; i<=n; i++){
             for(int j=1; j<=m; j++){
                 int sum = i + j;
-              //  cout<<arr[i][j]<<" ";
+
                 if(arr[i][j]!=0){
                     small_turret.push(make_pair(-arr[i][j], make_pair(attack[i][j], make_pair(sum, j))));
                     big_turret.push(make_pair(arr[i][j], make_pair(-attack[i][j], make_pair(-sum, -j))));
                     node.insert(make_pair(i,j));
                 }
             }
-           // cout<<'\n';
         }
     }
 
@@ -608,9 +615,18 @@ int main() {
 // 		// 3. 포탑 부서짐
 // 		setBrokenTower();
         
-//         cout<<'\n';
 // 		// 4. 포탑 정비
 // 		maintainTower(tempMAP);				
+
+//                 if(time==11||time==12){
+//             for(int i=1; i<=N; i++){
+//                 for(int j=1; j<=M; j++){
+//                     cout<<MAP[i][j]<<" ";
+//                 }
+//                 cout<<'\n';
+//             }
+//         }
+//         cout<<'\n';
 // 	}
 
 // 	// 5. 가장 큰 값 탐색
