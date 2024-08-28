@@ -50,7 +50,6 @@ Square findSquare(){
 }
 
 void rotation(int x, int y, int s){
-  //  cout<<x<<" "<<y<<" "<<s<<" hi"<<'\n';
     int temp[11][11] = {0};
 
     for(int i=1; i<=N; i++){
@@ -67,15 +66,6 @@ void rotation(int x, int y, int s){
         }
     }
 
-    
-
-    // for(int i=1; i<=N; i++){
-    //     for(int j=1; j<=N; j++){
-    //         cout<<temp[i][j]<<" ";
-    //     }
-    //     cout<<'\n';
-    // }
-
    for(int i=1; i<=N; i++){
         for(int j=1; j<=N; j++){
             MAP[i][j] = temp[i][j];
@@ -85,13 +75,6 @@ void rotation(int x, int y, int s){
             }
         }
     }    
-
-    // for(int i=1; i<=N; i++){
-    //     for(int j=1; j<=N; j++){
-    //         cout<<MAP[i][j]<<" ";
-    //     }
-    //     cout<<'\n';
-    // }
 }
 
 int main() {
@@ -159,7 +142,6 @@ int main() {
 
         Square result = findSquare();
 
-    //    cout<<"rotation "<<result.x<<" "<<result.y<<" "<<result.square<<'\n';
         rotation(result.x, result.y, result.square);
 
         for(auto &it : people){
@@ -174,18 +156,12 @@ int main() {
                 int nx = result.x + d_y;
                 int ny = result.y + size - d_x - 1;
 
-                //cout<<"people "<<it.first<<" "<<nx<<" "<<ny<<'\n';
                 people[it.first] = make_pair(nx,ny);
             }
         }
 
         K--;
     }
-
-    // cout<<people.size()<<'\n';
-    // for(auto it : people){
-    //     cout<<it.second.first<<" "<<it.second.second<<'\n';
-    // }
 
     cout<<sum<<'\n';
     cout<<R<<" "<<C<<'\n';
