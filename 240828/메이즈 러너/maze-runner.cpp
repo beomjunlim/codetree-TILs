@@ -13,8 +13,40 @@ int dx[] = {1,-1,0,0};
 int dy[] = {0,0,1,-1};
 unordered_map<int, pair<int,int>> people;
 
+struct Square{
+    int square;
+    int x;
+    int y;
+};
+
 bool InRange(int x, int y){
     return 0<x&&x<=N&&0<y&&y<=N;
+}
+
+Square findSquare(){
+    int square;
+    int left_x;
+    int left_y;
+    for(int sq=2; sq<=N; sq++){
+        square = sq;
+        for(int i=1; i<=N; i++){
+            left_x = i;
+            for(int j=1; j<=N; j++){
+                left_y = j;
+                if(i<=R&&R<=i+sq-1&&j<=C&&C<=j+sq-1){
+                    for(auto it : people){
+                        int x = it.second.first;
+                        int y = it.second.second;
+
+                        if(i<=x&&x<=i+sq-1&&j<=y&&y<=j+sq-1){
+                            return {square, left_x, left_y};
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return {square, left_x, left_y};
 }
 
 void rotation(int x, int y, int s){
@@ -122,133 +154,25 @@ int main() {
             }
         }   
 
-        int left_x = N+1;
-        int left_y = N+1;
-        int squaure = N+1;
-
         if(people.size()==0)
             break;
 
-        for(auto it : people){
-            int x = it.second.first;
-            int y = it.second.second;
+        Square result = findSquare();
 
-           // cout<<"People "<<x<<" "<<y<<" "<<R<<" "<<C<<'\n';
-
-            int dist = max(abs(R-x), abs(C-y));
-
-            // 좌측 상단
-            int nx = max(R - dist,1);
-            int ny = max(C - dist,1);
-
-            if(InRange(nx,ny)&&nx<=x&&x<=nx+dist&&ny<=y&&y<=ny+dist){
-                if(squaure>dist){
-                    left_x = nx;
-                    left_y = ny;
-                    squaure = dist;
-                }
-
-                if(squaure==dist){
-                    if(left_x>nx){
-                        left_x = nx;
-                        left_y = ny;
-                    }
-                    if(left_x==nx){
-                        if(left_y>ny)
-                            left_y = ny;
-                    }
-                }
-            }
-
-            // 우측 상단
-
-            nx = max(R - dist,1);
-            ny = C;
-
-            if(InRange(nx,ny)&&nx<=x&&x<=nx+dist&&ny<=y&&y<=ny+dist){
-                if(squaure>dist){
-                    left_x = nx;
-                    left_y = ny;
-                    squaure = dist;
-                }
-
-                if(squaure==dist){
-                    if(left_x>nx){
-                        left_x = nx;
-                        left_y = ny;
-                    }
-                    if(left_x==nx){
-                        if(left_y>ny)
-                            left_y = ny;
-                    }
-                }
-            }
-
-            // 좌측 하단
-
-            nx = R;
-            ny = max(C - dist,1);
-
-            if(InRange(nx,ny)&&nx<=x&&x<=nx+dist&&ny<=y&&y<=ny+dist){
-                if(squaure>dist){
-                    left_x = nx;
-                    left_y = ny;
-                    squaure = dist;
-                }
-
-                if(squaure==dist){
-                    if(left_x>nx){
-                        left_x = nx;
-                        left_y = ny;
-                    }
-                    if(left_x==nx){
-                        if(left_y>ny)
-                            left_y = ny;
-                    }
-                }
-            }
-
-            // 우측 하단
-
-            nx = R;
-            ny = C;
-
-            if(InRange(nx,ny)&&nx<=x&&x<=nx+dist&&ny<=y&&y<=ny+dist){
-                if(squaure>dist){
-                    left_x = nx;
-                    left_y = ny;
-                    squaure = dist;
-                }
-
-                if(squaure==dist){
-                    if(left_x>nx){
-                        left_x = nx;
-                        left_y = ny;
-                    }
-                    if(left_x==nx){
-                        if(left_y>ny)
-                            left_y = ny;
-                    }
-                }
-            }
-           // cout<<"후보군 "<<left_x<<" "<<left_y<<" "<<squaure<<'\n';
-        }
-
-
-        rotation(left_x, left_y, squaure+1);
-   //     cout<<"rotation "<<left_x<<" "<<left_y<<" "<<squaure+1<<'\n';
+    //    cout<<"rotation "<<result.x<<" "<<result.y<<" "<<result.square<<'\n';
+        rotation(result.x, result.y, result.square);
 
         for(auto &it : people){
             int x = it.second.first;
             int y = it.second.second;
 
-            if(left_x<=x&&x<=left_x+squaure&&left_y<=y&&y<=left_y+squaure){
-                int size = squaure + 1;
+            if(result.x<=x&&x<=result.x+result.square-1&&result.y<=y&&y<=result.y+result.square-1){
+                int size = result.square;
                 
-                int d_x = x - left_x;
-                int d_y = y - left_y;
-                int nx = left_x + d_y;
-                int ny = left_y + size - d_x - 1;
+                int d_x = x - result.x;
+                int d_y = y - result.y;
+                int nx = result.x + d_y;
+                int ny = result.y + size - d_x - 1;
 
                 //cout<<"people "<<it.first<<" "<<nx<<" "<<ny<<'\n';
                 people[it.first] = make_pair(nx,ny);
