@@ -106,9 +106,7 @@ bool CanGo(int r, int c, int h, int w, int d, int id){
         }
     }
     else if(d==3){
-      //  cout<<"반갑다 "<<r<<" "<<c<<" "<<end_r<<" "<<end_c<<'\n';
         int nc = c + dy[d];
-    //    cout<<"움직였다 "<<r<<" "<<nc<<" "<<end_r<<" "<<end_c<<'\n';
 
         if(!InRange(r,nc))
             return false;
@@ -135,110 +133,6 @@ bool CanGo(int r, int c, int h, int w, int d, int id){
     }
     return true;
 }
-
-// bool CanGo(int r, int c, int end_r, int end_c, int d, int id){
-//     cout<<"움직여 "<<id<<'\n';
-//     if(d==0){
-//         int nr = r + dx[d];
-
-//         if(!InRange(nr,end_c)){
-//             cout<<"fail C "<<nr<<" "<<end_c<<'\n';
-//             return false;
-//         }
-//         for(int i=c; i<=end_c; i++){
-//             if(MAP[nr][i]==2){
-//                 cout<<"fail A "<<id<<'\n';
-//                 return false;
-//             }
-//             if(knight_map[nr][i]!=0&&knight_map[nr][i]!=id&&!visited[knight_map[nr][i]]){
-//                 int ID = knight_map[nr][i];
-//                 visited[ID] = true;
-
-//                 int Dr = knights[ID].r;
-//                 int Dc = knights[ID].c;
-//                 int D_end_r = Dr + knights[ID].h - 1;
-//                 int D_end_c = Dc + knights[ID].c - 1;
-                
-//                 if(!CanGo(Dr, Dc, D_end_r, D_end_c, d, ID)){
-//                     cout<<"fail B "<<ID<<'\n';
-//                     return false;
-//                 }
-//             }
-//         }
-//     }
-//     else if(d==1){
-//         int nc = end_c + dy[d];
-
-//         if(!InRange(r,nc))
-//             return false;
-//         for(int i=r; i<=end_r; i++){
-//             if(MAP[i][nc]==2)
-//                 return false;
-//             if(knight_map[i][nc]!=0&&knight_map[i][nc]!=id&&!visited[knight_map[i][nc]]){
-//                 int ID = knight_map[i][nc];
-//                 visited[ID] = true;
-
-//                 int Dr = knights[ID].r;
-//                 int Dc = knights[ID].c;
-//                 int D_end_r = Dr + knights[ID].h - 1;
-//                 int D_end_c = Dc + knights[ID].c - 1;
-                
-//                 if(!CanGo(Dr, Dc, D_end_r, D_end_c, d, ID))
-//                     return false;
-//             }
-//         }
-//     }
-//     else if(d==2){
-//         int nr = end_r + dx[d];
-
-//         if(!InRange(nr,end_c))
-//             return false;
-
-//         for(int i=c; i<=end_c; i++){
-//             if(MAP[nr][i]==2)
-//                 return false;
-//             if(knight_map[nr][i]!=0&&knight_map[nr][i]!=id&&!visited[knight_map[nr][i]]){
-//                 int ID = knight_map[nr][i];
-//                 visited[ID] = true;
-
-//                 int Dr = knights[ID].r;
-//                 int Dc = knights[ID].c;
-//                 int D_end_r = Dr + knights[ID].h - 1;
-//                 int D_end_c = Dc + knights[ID].c - 1;
-                
-//                 if(!CanGo(Dr, Dc, D_end_r, D_end_c, d, ID))
-//                     return false;
-//             }
-//         }
-//     }
-//     else if(d==3){
-//       //  cout<<"반갑다 "<<r<<" "<<c<<" "<<end_r<<" "<<end_c<<'\n';
-//         int nc = c + dy[d];
-//     //    cout<<"움직였다 "<<r<<" "<<nc<<" "<<end_r<<" "<<end_c<<'\n';
-
-//         if(!InRange(r,nc))
-//             return false;
-
-//         for(int i=r; i<=end_r; i++){
-//             if(MAP[i][nc]==2)
-//                 return false;
-//          //   cout<<"방문 "<<id<<" "<<knight_map[i][nc]<<'\n';
-//             if(knight_map[i][nc]!=0&&knight_map[i][nc]!=id&&!visited[knight_map[i][nc]]){
-//                 int ID = knight_map[i][nc];
-//                 visited[ID] = true;
-
-//                 int Dr = knights[ID].r;
-//                 int Dc = knights[ID].c;
-//                 int D_end_r = Dr + knights[ID].h - 1;
-//                 int D_end_c = Dc + knights[ID].c - 1;
-                
-//                 if(!CanGo(Dr, Dc, D_end_r, D_end_c, d, ID))
-//                     return false;
-//             }
-//         }
-//     }
-//     return true;
-// }
 
 void move(int d){
     for(int id=1; id<=N; id++){
@@ -288,7 +182,6 @@ int main() {
         memset(visited, false, sizeof(visited));
         
         if(CanGo(r,c,h,w,d,id)){
-           // cout<<"Q "<<q<<" Can MOVE"<<'\n';
 
             if(d==0||d==2){
                 knights[id].r += dx[d];
@@ -311,9 +204,8 @@ int main() {
                 for(int i=r; i<r+h; i++){
                     for(int j=c; j<c+w; j++){
                         knight_map[i][j] = ID;
-                       // cout<<ID<<" 안녕하세요"<<'\n';
+
                         if(visited[ID]&&ID!=id){
-                           // cout<<"피해자입니다. "<<ID<<'\n';
                             if(MAP[i][j]==1){
                                 it.second.k--;
 
@@ -334,16 +226,10 @@ int main() {
                 Damage.erase(ID);
             }
         }
-
-        // for(int i=1; i<=N; i++){
-        //   //  cout<<"Knight "<<visited[N]<<'\n';
-        // }
     }
 
     int sum = 0;
-  //  cout<<Damage.size()<<'\n';
-    for(auto it : Damage){
-        
+    for(auto it : Damage){ 
         sum += it.second;
     }
 
