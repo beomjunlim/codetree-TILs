@@ -1,45 +1,41 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
-
+#include <vector>
 using namespace std;
 
-// 가장 긴 증가하는 부분 수열의 길이를 구하는 함수
-int LIS(vector<int>& seq) {
-    vector<int> lis;
-    for (int i = 0; i < seq.size(); i++) {
-        auto it = lower_bound(lis.begin(), lis.end(), seq[i]);
-        if (it == lis.end()) {
-            lis.push_back(seq[i]);
-        } else {
-            *it = seq[i];
-        }
-    }
-    return lis.size();
-}
+vector<pair<int,int>> arr;
+int dp[101];
 
 int main() {
     int n;
-    cin >> n;
-    vector<pair<int, int>> lines(n);
-    
-    for (int i = 0; i < n; i++) {
-        cin >> lines[i].first >> lines[i].second;
+    cin>>n;
+
+    for(int i=0; i<n; i++){
+        int a,b;
+        cin>>a>>b;
+        arr.push_back(make_pair(a,b));
     }
 
-    // 두 번째 점 번호를 기준으로 오름차순 정렬
-    sort(lines.begin(), lines.end());
+    sort(arr.begin(), arr.end());
 
-    // 두 번째 점 번호만 따로 추출하여 LIS를 계산
-    vector<int> seq;
-    for (int i = 0; i < n; i++) {
-        seq.push_back(lines[i].second);
+    for(int i=0; i<n; i++){
+        dp[i] = 1;
+    }    
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<i; j++){
+            if(arr[i].second > arr[j].second){
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
     }
 
-    int lis_length = LIS(seq);
-    
-    // 제거해야 하는 최소 선의 개수는 전체 선의 개수에서 LIS의 길이를 뺀 값
-    cout << n - lis_length << endl;
+    int ans = n + 1;
+    for(int i=0; i<n; i++){
+        int num = n - dp[i];
+        ans = min(ans, num);
+    }
 
+    cout<<ans;
     return 0;
 }
