@@ -5,23 +5,16 @@ using namespace std;
 int n,m;
 int ans = 0;
 int arr[50001];
+int sum[50001];
 int start[3];
-
-int calculate(int idx){
-    int sum = 0;
-    for(int i=start[idx]; i<start[idx]+m; i++){
-        sum+= arr[i];
-    }
-    return sum;
-}
 
 void myFunction(int idx, int cnt){
     if(cnt==3){
-        int sum = 0;
+        int temp = 0;
         for(int i=0; i<3; i++){
-            sum += calculate(i);
+            temp += sum[start[i]+m-1] - sum[start[i]-1];
         }
-        ans = max(ans, sum);
+        ans = max(ans, temp);
         return;
     }
 
@@ -34,8 +27,10 @@ void myFunction(int idx, int cnt){
 int main() {
     cin>>n;
     
+    sum[0] = 0;
     for(int i=1; i<=n; i++){
         cin>>arr[i];
+        sum[i] = arr[i] + sum[i-1];
     }
 
     cin>>m;
