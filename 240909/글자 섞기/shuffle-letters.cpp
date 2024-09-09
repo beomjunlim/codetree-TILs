@@ -34,7 +34,9 @@ int main() {
         string temp = arr[i];
 
         for(int j=0; j<n; j++){
-            if(temp>rev_v[j].first&&i!=rev_v[j].second){
+            if(i==v[j].second)
+                continue;
+            if(temp>rev_v[j].first){
                 idx++;
             }
             else{
@@ -47,7 +49,9 @@ int main() {
         temp = rev_arr[i];
 
         for(int j=0; j<n; j++){
-            if(temp<v[j].first&&i!=v[j].second){
+            if(i==v[j].second)
+                continue;
+            if(temp>v[j].first){
                 idx++;
             }
             else{
