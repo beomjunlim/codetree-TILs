@@ -1,65 +1,60 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
 #include <string>
-#include <set>
-#include <map>
-#include<climits>
-using namespace std;
+#include <algorithm>
 
-string arr[50001];
-string rev_arr[50001];
-vector<pair<string,int>> v;
-vector<pair<string,int>> rev_v;
+using namespace std;
 
 int main() {
     int n;
-    cin>>n;
-
-    for(int i=0; i<n; i++){
-        cin>>arr[i];
-        sort(arr[i].begin(), arr[i].end());
-        v.push_back(make_pair(arr[i],i));
-
-        rev_arr[i] = arr[i];
-        reverse(rev_arr[i].begin(), rev_arr[i].end());
-        rev_v.push_back(make_pair(rev_arr[i],i));
+    cin >> n;
+    
+    vector<string> arr(n);
+    vector<string> sortedArr(n);
+    vector<string> reversedArr(n);
+    
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+        sortedArr[i] = arr[i];
+        sort(sortedArr[i].begin(), sortedArr[i].end());
+        
+        reversedArr[i] = sortedArr[i];
+        reverse(reversedArr[i].begin(), reversedArr[i].end());
     }
-
-    sort(v.begin(), v.end());
-    sort(rev_v.begin(), rev_v.end());
-
-    for(int i=0; i<n; i++){
-        int idx = 1;
-        string temp = arr[i];
-
-        for(int j=0; j<n; j++){
-            if(i==v[j].second)
-                continue;
-            if(temp>rev_v[j].first){
-                idx++;
-            }
-            else{
-                break;
-            }
-        }
-        cout<<idx<<" ";
-
-        idx = 1;
-        temp = rev_arr[i];
-
-        for(int j=0; j<n; j++){
-            if(i==v[j].second)
-                continue;
-            if(temp>v[j].first){
-                idx++;
-            }
-            else{
-                break;
-            }
-        }
-        cout<<idx<<'\n';
+    
+    vector<pair<string, int>> sortedPairs(n);
+    vector<pair<string, int>> reversedPairs(n);
+    
+    for (int i = 0; i < n; ++i) {
+        sortedPairs[i] = {sortedArr[i], i};
+        reversedPairs[i] = {reversedArr[i], i};
     }
-
+    
+    sort(sortedPairs.begin(), sortedPairs.end());
+    sort(reversedPairs.begin(), reversedPairs.end());
+    
+    vector<int> minPos(n);
+    vector<int> maxPos(n);
+    
+    for (int i = 0; i < n; ++i) {
+        string sortedStr = sortedArr[i];
+        string reversedStr = reversedArr[i];
+        
+        // Find min position
+        auto minIt = lower_bound(reversedPairs.begin(), reversedPairs.end(), make_pair(sortedStr, -1));
+        int minPosValue = distance(reversedPairs.begin(), minIt) + 1;
+        
+        // Find max position
+        auto maxIt = upper_bound(sortedPairs.begin(), sortedPairs.end(), make_pair(reversedStr, n));
+        int maxPosValue = distance(sortedPairs.begin(), maxIt) + 1;
+        
+        minPos[i] = minPosValue;
+        maxPos[i] = maxPosValue;
+    }
+    
+    for (int i = 0; i < n; ++i) {
+        cout << minPos[i] << ' ' << maxPos[i] - 1 << '\n';
+    }
+    
     return 0;
 }
