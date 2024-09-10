@@ -3,7 +3,6 @@ using namespace std;
 
 int even[7];
 int odd[7];
-int zero[7];
 int count[7];
 
 int main() {
@@ -18,7 +17,7 @@ int main() {
         if(a=='B'){
             count[0]++;
             if(b==0)
-                zero[0]++;
+                even[0]++;
             else if(b%2==0)
                 even[0]++;
             else 
@@ -27,7 +26,7 @@ int main() {
         else if(a=='E'){
             count[1]++;
             if(b==0)
-                zero[1]++;
+                even[1]++;
             else if(b%2==0)
                 even[1]++;
             else 
@@ -36,7 +35,7 @@ int main() {
         else if(a=='S'){
             count[2]++;
             if(b==0)
-                zero[2]++;
+                even[2]++;
             else if(b%2==0)
                 even[2]++;
             else 
@@ -45,7 +44,7 @@ int main() {
         else if(a=='I'){
             count[3]++;
             if(b==0)
-                zero[3]++;
+                even[3]++;
             else if(b%2==0)
                 even[3]++;
             else 
@@ -54,7 +53,7 @@ int main() {
         else if(a=='G'){
             count[4]++;
             if(b==0)
-                zero[4]++;
+                even[4]++;
             else if(b%2==0)
                 even[4]++;
             else 
@@ -63,7 +62,7 @@ int main() {
         else if(a=='O'){
             count[5]++;
             if(b==0)
-                zero[5]++;
+                even[5]++;
             else if(b%2==0)
                 even[5]++;
             else 
@@ -72,7 +71,7 @@ int main() {
         else if(a=='M'){
             count[6]++;
             if(b==0)
-                zero[6]++;
+                even[6]++;
             else if(b%2==0)
                 even[6]++;
             else 
