@@ -5,7 +5,6 @@
 #include <queue>
 using namespace std;
 
-int ans[100001];
 bool visited[100001];
 
 int main() {
@@ -14,22 +13,24 @@ int main() {
 
     stack<int> st;
     queue<char> q;
+    int num = 1;
     for(int i=0; i<n; i++){
         int a;
         cin>>a;
-        for(int j=1; j<=a; j++){
-            if(!visited[j]){
-                q.push('+');
-                st.push(j);
-                visited[j] = true;
-            }
+        while(num<=a){
+            st.push(num);
+            q.push('+');
+            num++;
         }
-        if(st.top()!=a){
-            cout<<"NO";
+        
+        if(st.top()==a){
+            st.pop();
+            q.push('-');
+        }
+        else{
+            cout<<"NO"<<'\n';
             return 0;
         }
-        st.pop();
-        q.push('-');
     }
 
     while(!q.empty()){
