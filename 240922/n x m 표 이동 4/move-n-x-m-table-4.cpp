@@ -52,7 +52,7 @@ int main() {
     for(int i=2; i<=n; i++){
         for(int j=2; j<=m; j++){
             if(Map[i][j]!=-1){
-                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                dp[i][j] = (dp[i-1][j] + dp[i][j-1])%1000000007;
             }
         }
     }
