@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace std;
 
-int arr[10001];
+long long arr[10001];
 
 int main() {
     int n;
@@ -13,13 +13,18 @@ int main() {
     }
 
     sort(arr, arr+n);
-
+    
     int start = 0;
     int end = n-1;
-    int ans = 0;
+    long long ans = 0;
 
-    while(start<=end){
-        int num = arr[start] + arr[end];
+    if(n%2!=0){
+        ans = arr[end];
+        end = n-2;
+    }
+
+    while(start<end){
+        long long num = arr[start] + arr[end];
         ans = max(ans, num);
         start++;
         end--;
