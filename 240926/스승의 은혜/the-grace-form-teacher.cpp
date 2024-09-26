@@ -6,6 +6,13 @@ using namespace std;
 int n,b;
 vector<pair<int,int>> student;
 
+bool cmp(pair<int,int> a, pair<int,int> b){
+    if(a.first == b.first)
+        return a.second < b.second;
+    
+    return a.first + a.second < b.first + b.second;
+}
+
 int main() {
     cin>>n>>b;
 
@@ -15,7 +22,11 @@ int main() {
         student.push_back(make_pair(product,delivery));
     }
 
-    sort(student.begin(), student.end());
+    sort(student.begin(), student.end(), cmp);
+
+    // for(int i=0; i<n; i++){
+    //     cout<<student[i].first<<" "<<student[i].second<<'\n';
+    // }
     int ans = 0;
 
     for(int i=0; i<n; i++){
