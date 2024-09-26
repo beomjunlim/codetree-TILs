@@ -20,12 +20,17 @@ int main() {
 
     for(int i=0; i<n; i++){
         int sum = b;
-        sum -= student[i].second;
-        sum -= student[i].first/2;
+        int num = student[i].first/2 + student[i].second;
+
+        if(sum<num)
+            break;
+        
+        sum -= num;
         int cnt = 1;
+
         for(int j=0; j<n; j++){
             if(i!=j){
-                int num = student[j].first + student[j].second;
+                num = student[j].first + student[j].second;
 
                 if(sum<num)
                     break;
@@ -34,7 +39,6 @@ int main() {
                 cnt++;
             }
         }
-
         ans = max(ans, cnt);
     }
 
