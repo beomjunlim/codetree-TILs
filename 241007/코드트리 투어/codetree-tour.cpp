@@ -64,7 +64,7 @@ int main() {
                 node[b].push_back({ a,c });
             }
 
-            dijkstra(0); // 비용 계산
+            dijkstra(0);
         }
         else if (command == 200) {
             int id, pay, dest;
@@ -77,18 +77,24 @@ int main() {
         else if (command == 300) {
             int id;
             cin >> id;
-            product.erase(id);
-            sold[id] = true;
+            if (product.find(id) != product.end()) {
+                //cout << id << " delete" << '\n';
+                product.erase(id);
+                sold[id] = true;
+            }
         }
         else if (command == 400) {
             int answer = -1;
+
             if (sale.empty())
                 answer = -1;
             else {
                 bool sw = false;
                 int id = -1;
+                int pay = -1;
                 while (!sale.empty()) {
                     id = -sale.top().second;
+                    pay = sale.top().first;
                     sale.pop();
                     if (CanSold(id)) {
                         sw = true;
@@ -97,6 +103,7 @@ int main() {
                 }
                 
                 if (sw) {
+                   // cout << id << " " << pay << '\n';
                     product.erase(id);
                     sold[id] = true;
                     answer = id;
