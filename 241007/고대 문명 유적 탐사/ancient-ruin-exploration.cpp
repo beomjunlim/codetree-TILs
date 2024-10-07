@@ -9,9 +9,9 @@ struct GOLD{
     bool operator<(const GOLD & other) const{
         if(gold==other.gold){
             if(angle==other.angle){
-                if(x==other.x)
-                    return y > other.y;
-                return x > other.y;
+                if(y==other.y)
+                    return x > other.x;
+                return y > other.y;
             }
             return angle > other.angle;
         }
