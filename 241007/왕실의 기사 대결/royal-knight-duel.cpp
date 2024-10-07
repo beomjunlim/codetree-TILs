@@ -13,8 +13,8 @@ int L, N, Q;
 int arr[41][41];
 int knightMap[41][41];
 int temp[41][41];
-int tempKnightMap[41][41];
 bool Dead[31];
+bool visited[31];
 Knight knight[31];
 
 int dx[] = { -1,0,1,0 };
@@ -53,8 +53,10 @@ bool CanGo(int idx, int d, vector<int> &v,int Q) {
             }
         }
     }
-
-    v.push_back(idx);
+    if(!visited[idx]){
+        visited[idx] = true;
+        v.push_back(idx);
+    }
     return true;
 }
 
@@ -78,6 +80,14 @@ int main() {
             }
         }
     }
+    // cout<<"=-================="<<'\n';
+    // for(int i=1; i<=L; i++){
+    //     for(int j=1; j<=L; j++){
+    //         cout<<knightMap[i][j]<<" ";
+    //     }
+    //     cout<<'\n';
+    // }
+    // cout<<"================"<<'\n';
 
     while (Q > 0) {
         int idx, d;
@@ -86,8 +96,10 @@ int main() {
 
         if (Dead[idx])
             continue;
+        memset(visited, false, sizeof(visited));
 
         if (CanGo(idx, d, carry,Q)) {
+         //   cout<<"carry "<<carry.size()<<'\n';
             for (int id = 0; id < carry.size(); id++) {
                 int Id = carry[id];
                 int x = knight[Id].r;
@@ -139,9 +151,18 @@ int main() {
         
         Q--;
     }
+
+    // for(int i=1; i<=L; i++){
+    //     for(int j=1; j<=L; j++){
+    //         cout<<knightMap[i][j]<<" ";
+    //     }
+    //     cout<<'\n';
+    // }
     int answer = 0;
     for (int i = 1; i <= N; i++) {
+      //  cout<<knight[i].r<<" "<<knight[i].c<<'\n';
         if (!Dead[i]) {
+             //       cout<<knight[i].damage<<'\n';
             answer += knight[i].damage;
         }
     }
