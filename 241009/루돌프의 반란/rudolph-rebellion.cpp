@@ -127,6 +127,7 @@ int main() {
         int x, y, z;
         cin >> x >> y >> z;
         santa[x] = { y,z,0,false,-1 };
+        Map[y][z] = x;
     }
 
     for (int Q = 1; Q <= m; Q++) {
@@ -196,6 +197,11 @@ int main() {
                 santa[i].score++;
         }
     }
+
+        //     for (int i = 1; i <= p; i++) {
+        //     cout << santa[i].x << " " << santa[i].y<<" "<<santa[i].dead << '\n';
+        // }
+        // cout<<"=========="<<'\n';
 
     for (int i = 1; i <= p; i++) {
         cout << santa[i].score << " ";
