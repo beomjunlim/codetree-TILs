@@ -87,9 +87,6 @@ int main() {
         arr[attX][attY] = attP;
         Last[attX][attY] = k;
 
-        if (arr[defX][defY] <= 0)
-            towerNum--;
-
         attP = attP / 2;
 
         bool laser = false;
@@ -161,7 +158,10 @@ int main() {
             }
         }
 
-        arr[defX][defY] -= attP*2;
+        arr[defX][defY] -= arr[attX][attY];
+
+        if(arr[defX][defY]<=0)
+            towerNum--;
 
         for(int i=0; i<N; i++){
             for(int j=0; j<M; j++){
