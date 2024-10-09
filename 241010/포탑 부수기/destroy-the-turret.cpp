@@ -7,9 +7,9 @@
 using namespace std;
 
 struct Attacker {
-    int power, last, r, c;
-
-    bool operator<(const Attacker &a) const {
+    int  r, c, power, last;
+    
+    bool operator<(const Attacker& a) const {
         if (power != a.power)
             return power > a.power;
         if (last != a.last)
@@ -21,7 +21,7 @@ struct Attacker {
 };
 
 struct Defence {
-    int power, last, r, c;
+    int r,c, power, last;
 
     bool operator<(const Defence& a) const {
         if (power != a.power)
@@ -50,8 +50,7 @@ int dy[] = { 1,0,-1,0, -1,1,-1,1 };
 
 int main() {
     cin >> N >> M >> K;
-
-    towerNum = 0;
+    
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             cin >> arr[i][j];
@@ -62,40 +61,42 @@ int main() {
     }
 
     for (int k = 1; k <= K; k++) {
+        if(towerNum==1)
+            break;
+
         priority_queue<Attacker> attack;
-        priority_queue<Defence> defence;
+        priority_queue<Defence>defence;
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
                 if (arr[i][j] > 0) {
-                    attack.push({ arr[i][j],Last[i][j], i, j });
-                    defence.push({ arr[i][j],Last[i][j], i, j });
+                    attack.push({ i,j,arr[i][j], Last[i][j] });
+                    defence.push({ i,j,arr[i][j], Last[i][j] });
                 }
             }
         }
 
         int attX = attack.top().r;
         int attY = attack.top().c;
-        int attP = attack.top().power;
+        int attP = attack.top().power + N+M;
 
         int defX = defence.top().r;
         int defY = defence.top().c;
-        int defP = defence.top().power;
+        int defP = defence.top().power - attP;
 
-        arr[attX][attY] += (N + M);
+        arr[attX][attY] = attP;
         Last[attX][attY] = k;
-
-        int Power = arr[attX][attY];
-        
-        arr[defX][defY] -= Power;
 
         if (arr[defX][defY] <= 0)
             towerNum--;
 
-        bool sw = false;
+        attP = attP / 2;
+
+        bool laser = false;
         memset(visited, false, sizeof(visited));
+
         queue<pair<int, int>> q;
-        q.push({ attX,attY });
+        q.push({ attX, attY });
         visited[attX][attY] = true;
 
         while (!q.empty()) {
@@ -104,15 +105,15 @@ int main() {
             q.pop();
 
             if (x == defX && y == defY) {
-                sw = true;
+                laser = true;
                 break;
             }
 
             for (int i = 0; i < 4; i++) {
-                int nx = (x + dx[i] + N) % N;
-                int ny = (y + dy[i] + M) % M;
+                int nx = (N + x + dx[i]) % N;
+                int ny = (M + y + dy[i]) % M;
 
-                if (!visited[nx][ny]&&arr[nx][ny]>0) {
+                if (!visited[nx][ny] && arr[nx][ny] > 0) {
                     backup[nx][ny] = { x,y };
                     visited[nx][ny] = true;
                     q.push({ nx,ny });
@@ -124,22 +125,23 @@ int main() {
         visited[attX][attY] = true;
         visited[defX][defY] = true;
 
-        Power = Power / 2;
-        if (sw) {
+        if (laser) {
             int x = backup[defX][defY].x;
             int y = backup[defX][defY].y;
-            
+
             while (1) {
                 if (x == attX && y == attY)
                     break;
 
-                arr[x][y] -= Power;
+                arr[x][y] -= attP;
                 visited[x][y] = true;
+
                 if (arr[x][y] <= 0)
-                    towerNum--;
+                    towerNum;
 
                 int nx = backup[x][y].x;
                 int ny = backup[x][y].y;
+
                 x = nx;
                 y = ny;
             }
@@ -147,20 +149,23 @@ int main() {
         else {
             int x = defX;
             int y = defY;
-            for (int i = 0; i < 8; i++) {
-                int nx = (x + dx[i] + N) % N;
-                int ny = (y + dy[i] + M) % M;
 
-                if (arr[nx][ny] > 0) {
+            for (int i = 0; i < 8; i++) {
+                int nx = (N + x + dx[i]) % N;
+                int ny = (M + y + dy[i]) % M;
+
+                if (!visited[nx][ny]&&arr[nx][ny] > 0) {
                     visited[nx][ny] = true;
-                    arr[nx][ny] -= Power;
+                    arr[nx][ny] -= attP;
                 }
             }
         }
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (!visited[i][j] && arr[i][j] > 0)
+        arr[defX][defY] -= attP*2;
+
+        for(int i=0; i<N; i++){
+            for(int j=0; j<M; j++){
+                if(!visited[i][j]&&arr[i][j]>0)
                     arr[i][j]++;
             }
         }
@@ -169,8 +174,10 @@ int main() {
     int answer = 0;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
+          //  cout<<arr[i][j]<<" ";
             answer = max(answer, arr[i][j]);
         }
+     //   cout<<'\n';
     }
 
     cout << answer;
