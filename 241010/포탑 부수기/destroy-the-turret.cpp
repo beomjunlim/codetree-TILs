@@ -134,7 +134,7 @@ int main() {
                 visited[x][y] = true;
 
                 if (arr[x][y] <= 0)
-                    towerNum;
+                    towerNum--;
 
                 int nx = backup[x][y].x;
                 int ny = backup[x][y].y;
@@ -154,11 +154,14 @@ int main() {
                 if (!visited[nx][ny]&&arr[nx][ny] > 0) {
                     visited[nx][ny] = true;
                     arr[nx][ny] -= attP;
+
+                    if(arr[nx][ny]<=0)
+                        towerNum--;
                 }
             }
         }
 
-        arr[defX][defY] -= arr[attX][attY];
+        arr[defX][defY] = defP;
 
         if(arr[defX][defY]<=0)
             towerNum--;
