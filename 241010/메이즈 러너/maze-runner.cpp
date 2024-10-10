@@ -118,6 +118,7 @@ int main() {
         int x = R.x;
         int y = R.y;
         int size = R.size;
+      //  cout<<size<<" "<<x<<" "<<y<<" hh"<<'\n';
 
         int temp[11][11] = {0};
 
@@ -156,8 +157,8 @@ int main() {
             }
         }
 
-        for (int i = 1; i <= size; i++) {
-            for (int j = 1; j <= size; j++) {
+        for (int i = 1; i <=N; i++) {
+            for (int j = 1; j <=N; j++) {
                 Map[i][j] = temp[i][j];
             }
         }
