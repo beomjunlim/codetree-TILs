@@ -1,154 +1,221 @@
 #include <iostream>
 #include <vector>
-#include <cstring>
 #include <algorithm>
-#include <cmath>
 #include <queue>
+#include <set>
 #include <map>
-
+#include <cstring>
+#include <cmath>
 using namespace std;
 
-struct Rabit {
-    int id, jump, r, c;
+typedef long long ll;
+
+struct Rabbit {
+    int x, y;
+    int id;
+    int d;
+    int count;
+
+    bool operator<(const Rabbit& a) const {
+        if (count != a.count)
+            return count > a.count;
+        if (x + y != a.x + a.y)
+            return x + y > a.x + a.y;
+        if (x != a.x)
+            return x > a.x;
+        return y > a.y;
+    }
 };
 
-int n, m, p;
-Rabit rabit[2001];
-map<int, int> RabitJump;
-map<int, long long> Score;
-bool jumping[2001];
-int dx[] = { 0,-1,0,1 };
-int dy[] = { -1,0,1,0 };
-
-bool Jump(Rabit a, Rabit b) {
-    if (a.jump != b.jump)
-        return a.jump < b.jump;
-    if (a.r + a.c != b.r + b.c)
-        return a.r + a.c < b.r + b.c;
-    if (a.r != b.r)
-        return a.r < b.r;
-    if (a.c != b.c)
-        return a.c < b.c;
-    return a.id < b.id;
-}
-
-bool Give(Rabit a, Rabit b) {
-    if (a.r + a.c != b.r + b.c)
-        return a.r + a.c > b.r + b.c;
-    if (a.r != b.r)
-        return a.r > b.r;
-    if (a.c != b.c)
-        return a.c > b.c;
-    return a.id > b.id;
-}
-
-bool choice(pair<int, int> a, pair<int, int> b) {
+bool cmp(pair<ll, ll> a, pair<ll, ll> b){
     if (a.first + a.second != b.first + b.second)
         return a.first + a.second > b.first + b.second;
     if (a.first != b.first)
         return a.first > b.first;
-    if (a.second != b.second)
-        return a.second > b.second;
+    return a.second > b.second;
 }
+
+bool give(Rabbit a, Rabbit b) {
+    if (a.x + a.y != b.x + b.y)
+        return a.x + a.y > b.x + b.y;
+    if (a.x != b.x)
+        return a.x > b.x;
+    if (a.y != b.y)
+        return a.y > b.y;
+    return a.id > b.id;
+}
+
+int N, M, P;
+priority_queue<Rabbit> pq;
+map<int, Rabbit> rabbit;
+map<int, ll> score;
 
 int main() {
     int Q;
     cin >> Q;
-
     while (Q > 0) {
-        int cmd;
-        cin >> cmd;
+        int command;
+        cin >> command;
 
-        if (cmd == 100) {
-            cin >> n >> m>>p;
-            for (int i = 0; i < p; i++) {
+        if (command == 100) {
+            cin >> N >> M >> P;
+
+            for (int i = 1; i <= P; i++) {
                 int id, d;
                 cin >> id >> d;
-                rabit[i] = { id, 0,1,1 };
-                RabitJump[id] = d;
+
+                rabbit[id] = { 1,1,id,d,0 };
+            }
+
+            for (auto it : rabbit) {
+                pq.push(it.second);
+                score[it.first] = 0;
             }
         }
-        else if (cmd == 200) {
-            int k, s;
-            cin >> k >> s;
-            
-            memset(jumping, false, sizeof(jumping));
-            for (int i = 0; i < k; i++) {
-                sort(rabit, rabit+p, Jump);
-                vector<pair<int, int>> arr;
+        else if (command == 200) {
+            int K, S;
+            cin >> K >> S;
 
-                for (int j = 0; j < 4; j++) {
-                    int nx = abs(RabitJump[rabit[0].id] * dx[j]);
-                    int ny = abs(RabitJump[rabit[0].id] * dy[j]);
+            set<int> selected;
 
-                    nx = nx%(2*n-2);
-                    ny = ny%(2*m-2);
-                    int x = rabit[0].r;
-                    int y = rabit[0].c;
-                    int dir = j;
-                    for(int w=1; w<=nx; w++){
-                        x += dx[dir];
+            for (int i = 0; i < K; i++) {
+                int x = pq.top().x;
+                int y = pq.top().y;
+                int id = pq.top().id;
+                int jump = pq.top().d;
+                int count = pq.top().count;
 
-                        if(x==0||x==n+1){
-                            dir = (dir+2)%4;
-                            if(x==0)
-                                x = 2;
-                            else
-                                x = n-1;
-                        }
+                pq.pop();
+
+                selected.insert(id);
+
+                int mod_n = 2 * N - 2;
+                int mod_m = 2 * M - 2;
+
+                vector<pair<ll, ll>> coordinate;
+                int nx = x;
+                int ny = y;
+                int dist = jump % mod_n;
+
+                if (N - x >= dist) {
+                    nx = x + dist;
+                }
+                else {
+                    dist -= (N - x);
+                    if (dist >= N) {
+                        dist -= N - 1;
+                        nx = 1 + dist;
                     }
-
-                    for(int w=1; w<=ny; w++){
-                        y += dy[dir];
-                        if(y==0||y==m+1){
-
-                            dir = (dir+2)%4;
-                            if(y==0)
-                                y = 2;
-                            else
-                                y = m-1;
-                        }
+                    else {
+                        nx = N - dist;
                     }
-                    arr.push_back({ x,y });
+                }
+                coordinate.push_back(make_pair(nx, ny));
+                nx = x;
+                ny = y;
+                dist = jump % mod_n;
+
+                if (x - 1 >= dist) {
+                    nx = x - dist;
+                }
+                else {
+                    dist -= (x - 1);
+
+                    if (dist >= N) {
+                        dist -= N - 1;
+                        nx = N - dist;
+                    }
+                    else {
+                        nx = 1 + dist;
+                    }
+                }
+                coordinate.push_back(make_pair(nx, ny));
+
+                // 우
+                nx = x;
+                ny = y;
+                dist = jump % mod_m;
+
+                if (M - y >= dist) {
+                    ny = y + dist;
+                }
+                else {
+                    dist -= (M - y);
+                    if (dist >= M) {
+                        dist -= M - 1;
+                        ny = 1 + dist;
+                    }
+                    else {
+                        ny = M - dist;
+                    }
+                }
+                coordinate.push_back(make_pair(nx, ny));
+
+                // 좌
+                nx = x;
+                ny = y;
+                dist = jump % mod_m;
+
+                if (y - 1 >= dist) {
+                    ny = y - dist;
+                }
+                else {
+                    dist -= (y - 1);
+
+                    if (dist >= M) {
+                        dist -= M - 1;
+                        ny = M - dist;
+                    }
+                    else {
+                        ny = 1 + dist;
+                    }
                 }
 
-                sort(arr.begin(), arr.end(), choice);
+                coordinate.push_back(make_pair(nx, ny));
 
-                rabit[0].r = arr[0].first;
-                rabit[0].c = arr[0].second;
-                jumping[rabit[0].id] = true;
-                rabit[0].jump++;
+                sort(coordinate.begin(), coordinate.end(), cmp);
 
-                for (int j = 1; j < p; j++) {
-                    int id = rabit[j].id;
-                    Score[id] += (rabit[0].r + rabit[0].c);
+                x = coordinate[0].first;
+                y = coordinate[0].second;
+
+                rabbit[id].x = x;
+                rabbit[id].y = y;
+                rabbit[id].count = count + 1;
+                pq.push(rabbit[id]);
+
+
+                for (auto& it : score) {
+                    if (it.first != id)
+                        it.second += x + y;
                 }
             }
 
-            sort(rabit, rabit + p, Give);
-            for (int i = 0; i < p; i++) {
-                if (jumping[rabit[i].id]) {
-                    Score[rabit[i].id] += s;
-                    break;
-                }
-            }
+            vector<Rabbit> v;
+            for (auto id : selected)
+                v.push_back(rabbit[id]);
 
-            
+            sort(v.begin(), v.end(), give);
+
+            score[v[0].id] += S;
+
         }
-        else if (cmd == 300) {
+        else if (command == 300) {
             int id, l;
             cin >> id >> l;
-            int num = RabitJump[id];
-            RabitJump[id] = num * l;
+            rabbit[id].d *= l;
 
-        }
-        else if (cmd == 400) {
-            long long answer = 0;
-            for (auto it : Score) {
-                if (it.second > answer)
-                    answer = it.second;
+            pq = priority_queue<Rabbit>();
+
+            for (auto it : rabbit) {
+                pq.push(it.second);
             }
-            cout << answer;
+        }
+        else if (command == 400) {
+            ll max_num = 0;
+
+            for (auto it : score)
+                max_num = max(max_num, it.second);
+            cout << max_num;
         }
         Q--;
     }
