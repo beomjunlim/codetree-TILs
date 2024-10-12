@@ -148,10 +148,10 @@ int main() {
                 int nx = (N + x + dx[i]) % N;
                 int ny = (M + y + dy[i]) % M;
 
-
-
                 if (Map[nx][ny] != 0) {
                     visited[nx][ny] = true;
+                    if (nx == aR && ny == aC)
+                        Map[nx][ny] += ace;
                     Map[nx][ny] -= ace;
                 }
             }
