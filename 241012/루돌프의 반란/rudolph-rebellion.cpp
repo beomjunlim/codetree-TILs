@@ -188,9 +188,11 @@ int main() {
                 Map[x][y] = 0;
                 if (dir == 0)
                     dir = 5;
-                else if (dir == 3)
-                    dir = 7;
+                else if (dir == 1)
+                    dir = 3;
                 else if (dir == 2)
+                    dir = 1;
+                else if(dir==3)
                     dir = 3;
                 santa[i].sturn = m;
                 smash(i, dir,D);
