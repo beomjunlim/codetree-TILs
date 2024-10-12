@@ -42,7 +42,7 @@ int Map[11][11];
 int Last[11][11];
 bool visited[11][11];
 pair<int, int> parent[11][11];
-int dx[] = { 0,1,0,-1 -1,-1,1,1};
+int dx[] = { 0,1,0,-1, -1,-1,1,1};
 int dy[] = { 1,0,-1,0, -1,1,1,-1 };
 
 
@@ -84,8 +84,6 @@ int main() {
         int bR = defe.top().r;
         int bC = defe.top().c;
 
-        int ace = aPower / 2;
-
         bool laser = false;
         memset(visited, false, sizeof(visited));
         queue<pair<int, int>> q;
@@ -126,6 +124,7 @@ int main() {
         Map[aR][aC] += Pluse;
         Map[bR][bC] -= Map[aR][aC];
         Last[aR][aC] = k;
+        int ace = Map[aR][aC] / 2;
 
         if (laser) {
             int x = parent[bR][bC].first;
