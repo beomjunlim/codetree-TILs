@@ -189,7 +189,7 @@ int main() {
                 if (dir == 0)
                     dir = 5;
                 else if (dir == 1)
-                    dir = 3;
+                    dir = 7;
                 else if (dir == 2)
                     dir = 1;
                 else if(dir==3)
