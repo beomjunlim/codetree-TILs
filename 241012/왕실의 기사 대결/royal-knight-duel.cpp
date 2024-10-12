@@ -15,7 +15,7 @@ struct Knight {
 int L, N, Q;
 int Map[41][41];
 Knight knight[31];
-int Damage[31];
+long long Damage[31];
 bool Dead[31];
 bool visited[31];
 int dx[] = { -1,0,1,0 };
@@ -89,7 +89,8 @@ int main() {
     while (Q--) {
         int id, d;
         cin >> id >> d;
-
+        if (Dead[id])
+            continue;
         memset(visited, false, sizeof(visited));
         if (move(id, d)) {
             for (int i = 1; i <= N; i++) {
