@@ -55,7 +55,7 @@ bool move(int id, int d) {
         for (int i = 1; i <= N; i++) {
             if (!visited[i] && !Dead[i]) {
                 int x = knight[i].r, y = knight[i].c;
-                int dh = knight[i].h, dw = knight[i].c;
+                int dh = knight[i].h, dw = knight[i].w;
 
                 if (x + dh - 1 < nr || nr + h - 1 < x)
                     continue;
@@ -97,7 +97,6 @@ int main() {
                     knight[i].r += dx[d];
                     knight[i].c += dy[d];
 
-
                     int r = knight[i].r;
                     int c = knight[i].c;
                     int h = knight[i].h;
@@ -114,19 +113,18 @@ int main() {
 
                     if (i == id)
                         attack = 0;
-                    knight[i].k -= attack;
 
+                    knight[i].k -= attack;
                     Damage[i] += attack;
 
                     if (knight[i].k <= 0)
                         Dead[i] = true;
-
                 }
             }
         }
     }
 
-    int answer = 0;
+    long long answer = 0;
     for (int i = 1; i <= N; i++) {
         if (!Dead[i])
             answer += Damage[i];
