@@ -42,7 +42,7 @@ int Map[11][11];
 int Last[11][11];
 bool visited[11][11];
 pair<int, int> parent[11][11];
-int dx[] = { 0,1,0,-1, -1,-1,1,1};
+int dx[] = { 0,1,0,-1 ,-1,-1,1,1};
 int dy[] = { 1,0,-1,0, -1,1,1,-1 };
 
 
@@ -51,8 +51,8 @@ int main() {
 
     int total = 0;
 
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= M; j++) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
             cin >> Map[i][j];
             Last[i][j] = 0;
             if (Map[i][j] != 0)
@@ -68,8 +68,8 @@ int main() {
         priority_queue<Attacker> attack;
         priority_queue<Defence> defe;
         
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 if (Map[i][j] > 0) {
                     attack.push({ Map[i][j], Last[i][j], i,j });
                     defe.push({ Map[i][j], Last[i][j], i, j });
@@ -104,10 +104,7 @@ int main() {
                 int nx = (N + x + dx[i]) % N;
                 int ny = (M + y + dy[i]) % M;
 
-                if (nx == 0)
-                    nx = N;
-                if (ny == 0)
-                    ny = M;
+    
 
 
                 if (Map[nx][ny] != 0 && !visited[nx][ny]) {
@@ -124,6 +121,7 @@ int main() {
         Map[aR][aC] += Pluse;
         Map[bR][bC] -= Map[aR][aC];
         Last[aR][aC] = k;
+
         int ace = Map[aR][aC] / 2;
 
         if (laser) {
@@ -150,10 +148,6 @@ int main() {
                 int nx = (N + x + dx[i]) % N;
                 int ny = (M + y + dy[i]) % M;
 
-                if (nx == 0)
-                    nx = N;
-                if (ny == 0)
-                    ny = M;
 
 
                 if (Map[nx][ny] != 0) {
@@ -163,16 +157,16 @@ int main() {
             }
         }
         
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 if (!visited[i][j] && Map[i][j] > 0) {
                     Map[i][j]++;
                 }
             }
         }
 
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 if (visited[i][j] && Map[i][j] <= 0) {
                     Map[i][j] = 0;
                     total--;
@@ -182,8 +176,8 @@ int main() {
     }
 
     int answer = 0;
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= M; j++) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
             answer = max(answer, Map[i][j]);
         }
     }
