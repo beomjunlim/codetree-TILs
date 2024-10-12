@@ -154,8 +154,8 @@ int main() {
             if (santa[i].sturn == m || santa[i].sturn == m - 1)
                 continue;
 
-            int dx[] = { -1,1,0,0 };
-            int dy[] = { 0,0,-1,1 };
+            int dx[] = { -1,0,1,0 };
+            int dy[] = { 0,1,0,-1 };
             int x = santa[i].r, y = santa[i].c;
             int dis = pow(X - x,2) + pow(Y - y,2);
             int dir = -1;
