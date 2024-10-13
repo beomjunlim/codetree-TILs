@@ -4,14 +4,13 @@
 #include <queue>
 #include <set>
 #include <map>
-#include <cmath>
 #include <cstring>
-#include <climits>
+#include <cmath>
 using namespace std;
 
 struct People {
     int x, y;
-    bool escape = false;
+    bool sw = false;
 };
 
 struct Rotate {
@@ -20,10 +19,9 @@ struct Rotate {
 
 int N, M, K;
 int X, Y;
-int answer = 0;
 int Map[11][11];
 map<int, People> people;
-int PeopleNum = 0;
+
 int dx[] = { -1,1,0,0 };
 int dy[] = { 0,0,-1,1 };
 
@@ -31,68 +29,30 @@ bool InRange(int x, int y) {
     return 0 < x && x <= N && 0 < y && y <= N;
 }
 
-void move() {
-    for (auto& p : people) {
-        if (p.second.escape)
-            continue;
-
-        int x = p.second.x;
-        int y = p.second.y;
-        int dist = abs(X - x) + abs(Y - y);
-        int nX = -1, nY = -1;
-
-        for (int i = 0; i < 4; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-            int nDist = abs(X - nx) + abs(Y - ny);
-
-            if (InRange(nx, ny) && Map[nx][ny] == 0 && nDist < dist) {
-                dist = nDist;
-                nX = nx;
-                nY = ny;
-            }
-        }
-
-        if (nX == -1 && nY == -1)
-            continue;
-
-        answer++;
-
-        if (nX == X && nY == Y) {
-            PeopleNum--;
-            people[p.first] = { nX,nY, true };
-        }
-        else {
-            people[p.first] = { nX,nY, false };
-        }
-    }
-}
-
 bool CanRotate(int x, int y, int size) {
     if (x <= X && X < x + size && y <= Y && Y < y + size) {
-        for (auto p : people) {
-            int nx = p.second.x;
-            int ny = p.second.y;
+        for (auto person : people) {
+            int px = person.second.x;
+            int py = person.second.y;
 
-            if (x <= nx && nx < x + size && y <= ny && ny < y + size)
+            if (x <= px && px < x + size && y <= py && py < y + size)
                 return true;
         }
     }
     return false;
 }
 
-Rotate findRotate() {
-    for (int s = 2; s <= N; s++) {
-        for (int i = 1; i <= N - s + 1; i++) {
-            for (int j = 1; j <= N - s + 1; j++) {
-                if (CanRotate(i, j, s)) {
-                    return { i,j,s };
+Rotate rotate() {
+    for (int size = 2; size <= N; size++) {
+        for (int i = 1; i <= N - size + 1; i++) {
+            for (int j = 1; j <= N - size + 1; j++) {
+                if (CanRotate(i, j, size)) {
+                    return {i,j,size};
                 }
             }
         }
     }
 }
-
 
 int main() {
     cin >> N >> M >> K;
@@ -107,69 +67,110 @@ int main() {
         int x, y;
         cin >> x >> y;
         people[i] = { x,y };
+       
     }
 
-    PeopleNum = M;
+    int answer = 0;
     cin >> X >> Y;
 
-    while (K--) {
-        if (PeopleNum == 0)
+    while (K > 0) {
+        if(people.empty())
             break;
+        for (auto& person : people) {
+            int x = person.second.x;
+            int y = person.second.y;
 
-        move();
+            int dist = abs(X - x) + abs(Y - y);
+            int nextX = x, nextY = y;
+            for (int i = 0; i < 4; i++) {
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                int next = abs(X - nx) + abs(Y - ny);
 
-        for (int i = 1; i <= M; i++) {
-            if (people[i].escape)
-                people.erase(i);
+                if (InRange(nx, ny) && Map[nx][ny] == 0 && next < dist) {
+                    dist = next;
+                    nextX = nx;
+                    nextY = ny;
+                }
+            }
+
+           // cout<<K<<" move : "<<x<<" "<<y<<" "<<nextX<<" "<<nextY<<'\n';
+            if (nextX == x && nextY == y)
+                continue;
+
+            answer++;
+
+            if (nextX == X && nextY == Y) {
+                //escape[person.first] = true;
+                people[person.first].sw = true;
+                people[person.first] = {X,Y,true};
+                continue;
+            }
+
+            people[person.first] = { nextX, nextY, false };
         }
 
-        if (people.size()==0)
+        for (int i = 1; i <= M; i++) {
+            // if (escape[i])
+            //     people.erase(i);
+                if(people[i].sw)
+                    people.erase(i);
+        }
+
+        if (people.size() == 0)
             break;
 
-        Rotate R = findRotate();
-        int temp[11][11];
+        Rotate R = rotate();
+        int x = R.x;
+        int y = R.y;
+        int size = R.size;
+      //  cout<<size<<" "<<x<<" "<<y<<" hh"<<'\n';
+
+        int temp[11][11] = {0};
 
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
                 temp[i][j] = Map[i][j];
             }
         }
-
+        
         int nX = X;
         int nY = Y;
 
-        for (int i = 0; i < R.size; i++) {
-            for (int j = 0; j < R.size; j++) {
-                if (R.x + R.size - 1 - j == X && R.y + i == Y) {
-                    nX = R.x + i;
-                    nY = R.y + j;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if(x+size-1-j==X&&y+i==Y){
+                    nX = x + i;
+                    nY = y + j;
                 }
-                if (Map[R.x + R.size - 1 - j][R.y + i] > 0)
-                    Map[R.x + R.size - 1 - j][R.y + i]--;
-                temp[R.x + i][R.y + j] = Map[R.x + R.size - 1 - j][R.y + i];
+                if(Map[x+size-1-j][y+i]>0)
+                    Map[x+size-1-j][y+i]--;
+                temp[x+i][y+j] = Map[x+size-1-j][y+i];
             }
         }
 
         X = nX;
         Y = nY;
 
-        for (auto& p : people) {
-            int x = p.second.x;
-            int y = p.second.y;
+        for (auto& person : people) {
+            int nx = person.second.x;
+            int ny = person.second.y;
 
-            if (R.x <= x && x < R.x + R.size && R.y <= y && y < R.y + R.size) {
-                int nx = R.x - R.y + y;
-                int ny = R.x + R.y + R.size - x -1;
-                people[p.first] = { nx,ny,false };
+            if (x <= nx && nx < x + size && y <= ny && ny < y + size) {
+                int ax = x + ny - y;
+                int ay = y + x + size - nx - 1;
+                people[person.first] = { ax,ay, false };
             }
         }
 
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= N; j++) {
+        for (int i = 1; i <=N; i++) {
+            for (int j = 1; j <=N; j++) {
                 Map[i][j] = temp[i][j];
             }
         }
+        K--;
     }
+
     cout << answer << '\n';
     cout << X << " " << Y << '\n';
     return 0;
