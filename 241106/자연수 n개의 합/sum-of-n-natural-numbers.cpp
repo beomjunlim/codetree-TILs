@@ -7,7 +7,7 @@ int main() {
     cin>>n;
 
     long long left = 1;
-    long long right = n;
+    long long right = 2000000000;
     long long sum = 0;
 
     while(left<=right){
