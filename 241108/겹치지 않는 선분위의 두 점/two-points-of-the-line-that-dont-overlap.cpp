@@ -6,22 +6,26 @@ using namespace std;
 int n,m;
 vector<pair<long long,long long>> v;
 
-bool Possible(long long dist){
-    long long last =v[0].first;
-    int cnt = 1;
-    int idx = 0;
+bool cmp(pair<long long, long long> a, pair<long long, long long> b){
+    return a.first < b.first;
+}
 
-    while(idx<m){
-        if(last+dist<=v[idx].second){
-            last = last + dist;
+bool Possible(long long dist){
+    int cnt = 0;
+    long long last = -1000000000000000000;
+    for(int i=0; i<m; i++){
+        long long a,b;
+        a = v[i].first;
+        b = v[i].second;
+
+        while(last+dist<=b){
             cnt++;
-            if(cnt==n)
-                return true;
+            last = max(a, last+dist);
+            if(cnt>=n)
+                break;
         }
-        else
-            idx++;
     }
-    return false;
+    return cnt>=n;
 }
 
 int main() {
@@ -33,7 +37,7 @@ int main() {
         v.push_back({a,b});
     }
 
-    sort(v.begin(), v.end());
+    sort(v.begin(), v.end(), cmp);
 
     long long left = 0;
     long long right = 1000000000000000000;
