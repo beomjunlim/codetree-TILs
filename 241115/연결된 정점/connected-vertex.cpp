@@ -27,11 +27,13 @@ int main() {
         if(a=='x'){
             int x, y;
             cin>>x>>y;
-            int X = parent[x];
-            int Y = parent[y];
+            int X = find(x);
+            int Y = find(y);
 
-            parent[X] = Y;
-            count[Y] += count[X];
+            if(X!=Y){
+                parent[X] = Y;
+                count[Y] += count[X];
+            }
         }
         else{
             int x;
